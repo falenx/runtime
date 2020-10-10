@@ -14,7 +14,7 @@ protocol WeatherManagerDelegate {
 
 struct WeatherManager {
 
-    let weatherURL = "https://api.weatherapi.com/v1/forecast.json?key=23f7947dc120486e8ef191204201010&days=5"
+    let weatherURL = "https://api.weatherapi.com/v1/forecast.json?key=23f7947dc120486e8ef191204201010&days=3"
     
     
     var delegate: WeatherManagerDelegate?
@@ -60,9 +60,9 @@ struct WeatherManager {
             let decodedData = try decoder.decode(APIWeatherData.self, from: weatherData)
             
             let temp = decodedData.current.temp_f
-            let wind = decodedData.current.wind_mph
+            let wind = decodedData.forecast.forecastday[0].hour[19].wind_mph
             let name = decodedData.location.name
-            let rain = decodedData.forecast.forecastday[0].hour[15].chance_of_rain
+            let rain = decodedData.forecast.forecastday[0].hour[19].chance_of_rain
             let windDir = decodedData.current.wind_dir
             let humidity = decodedData.current.humidity
             let feelsLike = decodedData.current.feelslike_f

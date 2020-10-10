@@ -84,6 +84,9 @@ extension WeatherViewController: UITextFieldDelegate {
 
 extension WeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+        let someNum = weather.getRunningConditions()
+        print(weather.windSpeed)
+        print(someNum)
         DispatchQueue.main.async {
             self.currentConditionsLabel.text = weather.temperatureString + "°"
             self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
