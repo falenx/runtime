@@ -14,6 +14,9 @@ struct WeatherModel {
     let humidity: Double
     let feelsLike: Double
     let windSpeed: Double
+    let windDirection: String
+    let uvRating: Double
+    let chanceOfRain: Double
     
     var temperatureString: String {
         return String(format: "%.1f", temperature)
@@ -21,41 +24,43 @@ struct WeatherModel {
     
     var conditionName: String {
         switch conditionId {
-        case 200...232:
-            return "cloud.bolt"
-        case 300...321:
-            return "cloud.drizzle"
-        case 500...531:
-            return "cloud.heavyrain"
-        case 600...622:
-            return "cloud.snow"
-        case 800:
-            return "sun.min"
-        default:
+        case 1000:
+            return "sun.max"
+        case 1003:
+            return "cloud.sun"
+        case 1006...1009:
             return "cloud"
+        case 1183...1189:
+            return "cloud.drizzle"
+        case 1195, 1243, 1246:
+            return "cloud.heavyrain"
+        case 1213...1219:
+            return "cloud.snow"
+        case 1225:
+            return "snow"
+        default:
+            return "sun.min"
         }
     }
     
     var conditionStatement: String {
         switch conditionId {
-        case 200...232:
-            return "Lightning storms, stay inside for now"
-        case 300...321:
+        case 1000:
+            return "Clear skies, great running conditions"
+        case 1003:
+            return "Some clouds, great running conditions"
+        case 1006...1009:
+            return "Cloudy, perfect running conditions"
+        case 1183...1189:
             return "Light rain, run at your own risk"
-        case 500...531:
-            return "Heavy rain, stay inside for now"
-        case 600...622:
-            return "Snowfall, run at your own risk"
-        case 711:
-            return "Heavy smoke, stay inside for now"
-        case 741:
-            return "Fog, run at your own risk"
-        case 800:
-            return "Clear sky, great running conditions"
-        case 801...804:
-            return "Cloudy, great running conditions"
+        case 1195, 1243, 1246:
+            return "Heavy rain, bad time for a run"
+        case 1213...1219:
+            return "Light snow, run at your own risk"
+        case 1225:
+            return "Heavy snow, bad time for a run"
         default:
-            return "cloud"
+            return "sun.min"
         }
     }
     
