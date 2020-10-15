@@ -14,12 +14,14 @@ struct WeatherModel {
     let humidity: Double
     let feelsLike: Double
     let windSpeed: Double
-    let windDirection: String
     let uvRating: Double
     let chanceOfRain: Double
+    let currentHour: Int
     var temperatureString: String {
         return String(format: "%.1f", temperature)
     }
+    
+    var hoursArray: [WeatherModel]
     
     var conditionName: String {
         switch conditionId {
@@ -102,24 +104,25 @@ struct WeatherModel {
         
         //temperature effect on running conditions
         
-        if (33...40).contains(temperature) {
-            runningConditions = runningConditions - 2
+        if (33...40.9).contains(temperature) {
+            runningConditions -= 2
         } else if (41...47).contains(temperature) {
-            runningConditions = runningConditions - 1
-        } else if (80...86).contains(temperature) {
-            runningConditions = runningConditions - 1
-        } else if (87...89).contains(temperature) {
-            runningConditions = runningConditions - 2
+            runningConditions -= 1
+        } else if (78...84.2).contains(temperature) {
+            runningConditions -= 1
+        } else if (84.3...90).contains(temperature) {
+            runningConditions -= 2
         } else {
 
         }
-        print("running conditions after temp have changed to \(runningConditions)")
+        
+        print("temperature is \(temperature) lowered running conditions to \(runningConditions)")
         
         //humidity effect on running conditions
         
-        if (25...39).contains(humidity) {
+        if (25...39.9).contains(humidity) {
             runningConditions = runningConditions - 1
-        } else if (48...59).contains(humidity) {
+        } else if (40...59.9).contains(humidity) {
             runningConditions = runningConditions - 2
         } else if (60...69).contains(humidity) {
             runningConditions = runningConditions - 3
@@ -128,8 +131,8 @@ struct WeatherModel {
         } else {
             
         }
-        print(humidity)
-        print("running conditions after hum have changed to \(runningConditions)")
+        
+        print("humidity \(humidity) lowered running conditions to \(runningConditions)")
 
         //wind speed effect on running conditions
         
@@ -141,10 +144,11 @@ struct WeatherModel {
             
         }
         
-        print("running conditions after wind have changed to \(runningConditions)")
+        print("wind \(windSpeed) lowered running conditions to \(runningConditions)")
+
 
         //rain chance effect on running conditions
-        if (36...47).contains(chanceOfRain) {
+        if (36...47.8).contains(chanceOfRain) {
             runningConditions = runningConditions - 1
         } else if (48...60).contains(chanceOfRain) {
             runningConditions = runningConditions - 2
@@ -152,7 +156,7 @@ struct WeatherModel {
             runningConditions = runningConditions - 3
         }
         
-        print("running conditions after rain have changed to \(runningConditions)")
+        print("rain is \(chanceOfRain) lowered running conditions to \(runningConditions)")
 
         
         if runningConditions < 0 {
@@ -161,6 +165,7 @@ struct WeatherModel {
         
         runningConditionsArray.append(String(runningConditions))
         runningConditionsArray.append(cantRunReason ?? "")
+        print("running conditions are \(runningConditions)")
         return runningConditionsArray
     }
     

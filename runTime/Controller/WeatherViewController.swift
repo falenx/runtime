@@ -19,14 +19,23 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var currentWeatherImageView: UIImageView!
     @IBOutlet weak var currentConditionsLabel: UILabel!
     @IBOutlet weak var currentConditionsStatementLabel: UILabel!
+    @IBOutlet weak var hourlyTableView: UITableView!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
+    
+    var weather: WeatherModel?
+    var date = getDate()
+    
     
     
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
         locationManager.requestLocation()
     }
+    
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,26 +46,35 @@ class WeatherViewController: UIViewController{
         
         
         
+        hourlyTableView.dataSource = self
+        
+        
+        
         weatherManager.delegate = self
         searchTextField.delegate = self
         
+        hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
+        
         
     }
-
-    
-    
-     
-    
     
 }
+
+func dateConvert(date: Int) -> Int {
+    return date - 12
+}
+
+
+
+
 //MARK: - UITextFieldDelegate
 
 extension WeatherViewController: UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let searchText = searchTextField.text ?? "Empty"
-        print(searchText)
+        //let searchText = searchTextField.text ?? "Empty"
+        //print(searchText)
         textField.endEditing(true)
         return true
     }
@@ -84,14 +102,15 @@ extension WeatherViewController: UITextFieldDelegate {
 
 extension WeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-        let someNum = weather.getRunningConditions()
-        print(weather.windSpeed)
-        print(someNum)
         DispatchQueue.main.async {
             self.currentConditionsLabel.text = weather.temperatureString + "°"
             self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
             self.currentCityLabel.text = weather.cityName
             self.currentConditionsStatementLabel.text = weather.conditionStatement
+            self.weather = weather
+            self.hourlyTableView.reloadData()
+            self.date = getDate()
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -108,8 +127,6 @@ extension WeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            print(lat)
-            print(lon)
             weatherManager.fetchWeather(latitude: lat, longitude: lon)
             
         }
@@ -118,6 +135,36 @@ extension WeatherViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+}
+
+
+extension WeatherViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return weather?.hoursArray.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "hourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
+        
+        
+        
+        
+        let hour = weather?.hoursArray[indexPath.row]
+        cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
+        cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
+        cell.runningConditionsLabel.text = String(hour?.getRunningConditions()[0] ?? "")
+        cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
+        cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
+        if (hour?.currentHour ?? 0 > 12) {
+            cell.currentHourLabel.text = String(dateConvert(date: hour?.currentHour ?? 0)) + " PM"
+        } else {
+            cell.currentHourLabel.text = String(hour?.currentHour ?? 0) + " AM"
+        }
+        date = getDate()
+        return cell
+    }
+    
+    
 }
 
 
