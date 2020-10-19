@@ -8,6 +8,8 @@
 import UIKit
 import CoreLocation
 
+
+
 class WeatherViewController: UIViewController{
     
     
@@ -19,6 +21,7 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var currentWeatherImageView: UIImageView!
     @IBOutlet weak var currentConditionsLabel: UILabel!
     @IBOutlet weak var currentConditionsStatementLabel: UILabel!
+    @IBOutlet weak var currentRunRatingLabel: UILabel!
     @IBOutlet weak var hourlyTableView: UITableView!
     
     var weatherManager = WeatherManager()
@@ -47,7 +50,6 @@ class WeatherViewController: UIViewController{
         
         
         hourlyTableView.dataSource = self
-        
         
         
         weatherManager.delegate = self
@@ -80,7 +82,7 @@ extension WeatherViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let city = searchTextField.text {
+        if let city = searchTextField.text?.trimmingCharacters(in: .whitespaces) {
             weatherManager.fetchWeather(cityName: city)
         }
         
@@ -96,6 +98,8 @@ extension WeatherViewController: UITextFieldDelegate {
         }
     }
     
+    
+    
 }
 
 //MARK: - WeatherManagerDelegate
@@ -107,10 +111,13 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
             self.currentCityLabel.text = weather.cityName
             self.currentConditionsStatementLabel.text = weather.conditionStatement
+            self.currentRunRatingLabel.text = weather.hoursArray[0].getRunningConditions()[0]
+            self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(weather.hoursArray[0].getRunningConditions()[0])
             self.weather = weather
             self.hourlyTableView.reloadData()
             self.date = getDate()
             self.view.layoutIfNeeded()
+            WeatherModelStore.shared.updateModel(weather)
         }
     }
     
@@ -152,7 +159,8 @@ extension WeatherViewController: UITableViewDataSource {
         let hour = weather?.hoursArray[indexPath.row]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
         cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
-        cell.runningConditionsLabel.text = String(hour?.getRunningConditions()[0] ?? "")
+        cell.runningConditionsLabel.text = (hour?.getRunningConditions()[0] ?? "")
+        cell.runningConditionsLabel.textColor = getRunningConditionsColor(hour?.getRunningConditions()[0] ?? "")
         cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
         if (hour?.currentHour ?? 0 > 12) {
@@ -164,6 +172,20 @@ extension WeatherViewController: UITableViewDataSource {
         return cell
     }
     
+    
+    func getRunningConditionsColor(_ runCondition: String) -> UIColor{
+        let conditionRecieved = Int(runCondition)
+        
+        if conditionRecieved == 10 {
+            return UIColor(red: 54/256, green: 181/256, blue: 0/256, alpha: 1.0)
+        } else if (7...9).contains(conditionRecieved ?? 0) {
+            return UIColor(red: 118/256, green: 255/256, blue: 0/256, alpha: 1.0)
+        } else if (4...6).contains(conditionRecieved ?? 0) {
+            return UIColor.yellow
+        } else {
+            return UIColor.red
+        }
+    }
     
 }
 

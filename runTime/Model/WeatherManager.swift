@@ -32,6 +32,7 @@ struct WeatherManager {
     
     
     
+    
     func fetchWeather(cityName: String) {
         let urlString = "\(weatherURL)&q=\(cityName)"
         performRequest(with: urlString)
@@ -72,19 +73,12 @@ struct WeatherManager {
         do {
             let decodedData = try decoder.decode(APIWeatherData.self, from: weatherData)
             
-            let temp = decodedData.current.temp_f
-            let wind = decodedData.current.wind_mph
             let name = decodedData.location.name
-            let rain = decodedData.forecast.forecastday[0].hour[currentHour].chance_of_rain
-            let humidity = decodedData.current.humidity
-            let feelsLike = decodedData.current.feelslike_f
             let uv = decodedData.current.uv
-            let conditionId = decodedData.current.condition.code
             var futureWeather: [WeatherModel] = []
+
             
-            var nextHour = currentHour
-            let stopHour = nextHour + 12
-            while nextHour < stopHour {
+            for nextHour in currentHour...23 {
                 
                 let hourlyTemp = decodedData.forecast.forecastday[0].hour[nextHour].temp_f
                 let hourlyWind = decodedData.forecast.forecastday[0].hour[nextHour].wind_mph
@@ -106,17 +100,14 @@ struct WeatherManager {
                 
                 
                 futureWeather.append(hourlyWeather)
-                
-                nextHour += 1
-                if nextHour > 23 {
-                    break
-                }
-                
             }
-            
-            
-            
-            
+
+            let temp = decodedData.current.temp_f
+            let wind = decodedData.current.wind_mph
+            let rain = decodedData.forecast.forecastday[0].hour[currentHour].chance_of_rain
+            let humidity = decodedData.current.humidity
+            let feelsLike = decodedData.current.feelslike_f
+            let conditionId = decodedData.current.condition.code
             
             
             let currentWeather = WeatherModel(conditionId: conditionId,

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED01E582253E235B0078AEBC /* TomorrowWeatherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */; };
+		ED48C5AB253E2ECE00AA7589 /* WeatherModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */; };
 		ED77FA28252A88BF0012DF0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77FA27252A88BF0012DF0B /* AppDelegate.swift */; };
 		ED77FA2A252A88BF0012DF0B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77FA29252A88BF0012DF0B /* SceneDelegate.swift */; };
 		ED77FA2C252A88BF0012DF0B /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77FA2B252A88BF0012DF0B /* WeatherViewController.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherTableViewController.swift; sourceTree = "<group>"; };
+		ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelStore.swift; sourceTree = "<group>"; };
 		ED77FA24252A88BF0012DF0B /* runTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = runTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED77FA27252A88BF0012DF0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED77FA29252A88BF0012DF0B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 		EDFE1ECB253899C100F5A7A5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */,
 				ED77FA2B252A88BF0012DF0B /* WeatherViewController.swift */,
 			);
 			path = Controller;
@@ -97,6 +102,7 @@
 		EDFE1ECD253899E800F5A7A5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */,
 				EDB9FDA72530E8CF003C7AB6 /* WeatherManager.swift */,
 				EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */,
 				EDB9FDAB2530FD27003C7AB6 /* WeatherData.swift */,
@@ -180,9 +186,11 @@
 				ED99E6CF2538B844006A3509 /* HourlyWeatherCell.swift in Sources */,
 				ED77FA2C252A88BF0012DF0B /* WeatherViewController.swift in Sources */,
 				EDB9FDAC2530FD27003C7AB6 /* WeatherData.swift in Sources */,
+				ED01E582253E235B0078AEBC /* TomorrowWeatherTableViewController.swift in Sources */,
 				ED77FA28252A88BF0012DF0B /* AppDelegate.swift in Sources */,
 				EDB9FDA82530E8CF003C7AB6 /* WeatherManager.swift in Sources */,
 				EDB9FDB025310365003C7AB6 /* WeatherModel.swift in Sources */,
+				ED48C5AB253E2ECE00AA7589 /* WeatherModelStore.swift in Sources */,
 				ED77FA2A252A88BF0012DF0B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

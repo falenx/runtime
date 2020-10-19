@@ -169,4 +169,6 @@ struct WeatherModel {
         return runningConditionsArray
     }
     
+    
+    
 }
