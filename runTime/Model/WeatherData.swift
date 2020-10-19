@@ -6,32 +6,6 @@
 //
 
 import Foundation
-/*
-struct WeatherData: Decodable {
-    let name: String
-    let main: Main
-    let weather: [Weather]
-    let wind: Wind
-}
-
-
-struct Main: Decodable {
-    let temp: Double
-    let humidity: Double
-    let feels_like: Double
-}
-
-struct Weather: Decodable {
-    let id: Int
-}
-
-struct Wind: Decodable {
-    let speed: Double
-}
-
-*/
-
-
 //MARK: - New Stuff
 
 
@@ -50,7 +24,6 @@ struct APILocation: Decodable {
 struct APICurrent: Decodable {
     let temp_f: Double
     let wind_mph: Double
-    //let wind_dir: String
     let humidity: Double
     let feelslike_f: Double
     let uv: Double

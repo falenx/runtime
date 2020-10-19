@@ -116,7 +116,7 @@ struct WeatherModel {
 
         }
         
-        print("temperature is \(temperature) lowered running conditions to \(runningConditions)")
+        //print("temperature is \(temperature) lowered running conditions to \(runningConditions)")
         
         //humidity effect on running conditions
         
@@ -132,7 +132,7 @@ struct WeatherModel {
             
         }
         
-        print("humidity \(humidity) lowered running conditions to \(runningConditions)")
+        //print("humidity \(humidity) lowered running conditions to \(runningConditions)")
 
         //wind speed effect on running conditions
         
@@ -144,7 +144,7 @@ struct WeatherModel {
             
         }
         
-        print("wind \(windSpeed) lowered running conditions to \(runningConditions)")
+        //print("wind \(windSpeed) lowered running conditions to \(runningConditions)")
 
 
         //rain chance effect on running conditions
@@ -156,7 +156,7 @@ struct WeatherModel {
             runningConditions = runningConditions - 3
         }
         
-        print("rain is \(chanceOfRain) lowered running conditions to \(runningConditions)")
+        //print("rain is \(chanceOfRain) lowered running conditions to \(runningConditions)")
 
         
         if runningConditions < 0 {
@@ -165,7 +165,7 @@ struct WeatherModel {
         
         runningConditionsArray.append(String(runningConditions))
         runningConditionsArray.append(cantRunReason ?? "")
-        print("running conditions are \(runningConditions)")
+        //print("running conditions are \(runningConditions)")
         return runningConditionsArray
     }
     

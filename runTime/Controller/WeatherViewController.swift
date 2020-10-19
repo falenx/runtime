@@ -75,8 +75,6 @@ extension WeatherViewController: UITextFieldDelegate {
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //let searchText = searchTextField.text ?? "Empty"
-        //print(searchText)
         textField.endEditing(true)
         return true
     }
