@@ -28,7 +28,7 @@ class WeatherViewController: UIViewController{
     let locationManager = CLLocationManager()
     
     var weather: WeatherModel?
-    var date = getDate()
+    //var date = getDate()
     
     
     
@@ -63,6 +63,9 @@ class WeatherViewController: UIViewController{
 }
 
 func dateConvert(date: Int) -> Int {
+    if date == 12 {
+        return 12
+    }
     return date - 12
 }
 
@@ -91,7 +94,7 @@ extension WeatherViewController: UITextFieldDelegate {
         if textField.text != "" {
             return true
         } else {
-            textField.placeholder = "Type Something"
+            textField.placeholder = "Enter a city to search for"
             return false
         }
     }
@@ -109,11 +112,11 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
             self.currentCityLabel.text = weather.cityName
             self.currentConditionsStatementLabel.text = weather.conditionStatement
-            self.currentRunRatingLabel.text = weather.hoursArray[0].getRunningConditions()[0]
-            self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(weather.hoursArray[0].getRunningConditions()[0])
+            self.currentRunRatingLabel.text = weather.getRunningConditions()[0]
+            self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(weather.getRunningConditions()[0])
             self.weather = weather
             self.hourlyTableView.reloadData()
-            self.date = getDate()
+            //self.date = getDate()
             self.view.layoutIfNeeded()
             WeatherModelStore.shared.updateModel(weather)
         }
@@ -132,7 +135,6 @@ extension WeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            print(lat,lon)
             weatherManager.fetchWeather(latitude: lat, longitude: lon)
             
         }
@@ -146,28 +148,28 @@ extension WeatherViewController: CLLocationManagerDelegate {
 
 extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weather?.hoursArray.count ?? 0
-    }
+        return 23 - (weather?.currentHour ?? 0)
+        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "hourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
         
         
         
-        
-        let hour = weather?.hoursArray[indexPath.row]
+        let index = (weather?.currentHour ?? 0) + indexPath.row + 1
+        let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
         cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
         cell.runningConditionsLabel.text = (hour?.getRunningConditions()[0] ?? "")
         cell.runningConditionsLabel.textColor = getRunningConditionsColor(hour?.getRunningConditions()[0] ?? "")
         cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
-        if (hour?.currentHour ?? 0 > 12) {
+        if (hour?.currentHour ?? 0 > 11) {
             cell.currentHourLabel.text = String(dateConvert(date: hour?.currentHour ?? 0)) + " PM"
         } else {
             cell.currentHourLabel.text = String(hour?.currentHour ?? 0) + " AM"
         }
-        date = getDate()
+        //date = getDate()
         return cell
     }
     

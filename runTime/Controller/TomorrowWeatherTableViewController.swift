@@ -9,8 +9,6 @@ import UIKit
 
 class TomorrowWeatherTableViewController: UITableViewController {
     
-    var date = getDate()
-    
     var weather: WeatherModel?{
         didSet {
             tableView.reloadData()
@@ -49,7 +47,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return 5
+        return 24
     }
 
     
@@ -58,8 +56,8 @@ class TomorrowWeatherTableViewController: UITableViewController {
         
         
         
-        
-        let hour = weather?.hoursArray[indexPath.row]
+        let index = 24 + indexPath.row
+        let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
         cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
         cell.runningConditionsLabel.text = (hour?.getRunningConditions()[0] ?? "")
@@ -68,10 +66,11 @@ class TomorrowWeatherTableViewController: UITableViewController {
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
         if (hour?.currentHour ?? 0 > 12) {
             cell.currentHourLabel.text = String(dateConvert(date: hour?.currentHour ?? 0)) + " PM"
-        } else {
+        } else if (hour?.currentHour ?? 0 == 0){
+            cell.currentHourLabel.text = String(12) + " AM"
+        }else {
             cell.currentHourLabel.text = String(hour?.currentHour ?? 0) + " AM"
         }
-        date = getDate()
         return cell
     }
     

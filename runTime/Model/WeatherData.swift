@@ -28,6 +28,7 @@ struct APICurrent: Decodable {
     let feelslike_f: Double
     let uv: Double
     let condition: APICondition
+    let is_day: Int
 }
 
 struct APIForecast : Decodable {
@@ -45,6 +46,7 @@ struct APIHour: Decodable {
     let temp_f: Double
     let humidity: Double
     let feelslike_f: Double
+    let is_day: Int
 }
 
 struct APICondition: Decodable {
