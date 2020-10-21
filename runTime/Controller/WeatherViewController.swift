@@ -48,7 +48,6 @@ class WeatherViewController: UIViewController{
         locationManager.requestLocation()
         
         
-        
         hourlyTableView.dataSource = self
         
         
@@ -112,8 +111,8 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
             self.currentCityLabel.text = weather.cityName
             self.currentConditionsStatementLabel.text = weather.conditionStatement
-            self.currentRunRatingLabel.text = weather.getRunningConditions()[0]
-            self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(weather.getRunningConditions()[0])
+            self.currentRunRatingLabel.text = String(weather.getRunningConditions())
+            self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(String(weather.getRunningConditions()))
             self.weather = weather
             self.hourlyTableView.reloadData()
             //self.date = getDate()
@@ -160,8 +159,8 @@ extension WeatherViewController: UITableViewDataSource {
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
         cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
-        cell.runningConditionsLabel.text = (hour?.getRunningConditions()[0] ?? "")
-        cell.runningConditionsLabel.textColor = getRunningConditionsColor(hour?.getRunningConditions()[0] ?? "")
+        cell.runningConditionsLabel.text = String(hour?.getRunningConditions() ?? 0)
+        cell.runningConditionsLabel.textColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
         cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
         if (hour?.currentHour ?? 0 > 11) {
