@@ -16,6 +16,7 @@ struct WeatherModel {
     let windSpeed: Double
     let uvRating: Double
     let chanceOfRain: Double
+    let chanceOfSnow: Double
     let currentHour: Int
     let isDay: Int
     var temperatureString: String {
@@ -147,20 +148,20 @@ struct WeatherModel {
         }
 
         
-        func getRainFactor() -> Double {
+        func getPrecipitationFactor() -> Double {
             var condition = 10.0
             
-            if (36...47.8).contains(chanceOfRain) {
+            if (36...47.8).contains(chanceOfRain) || (36...47.8).contains(chanceOfSnow) {
                 condition -= 3
-            } else if (48...60).contains(chanceOfRain) {
+            } else if (48...60).contains(chanceOfRain) || (48...60).contains(chanceOfSnow){
                 condition -= 6
-            } else if chanceOfRain > 60 {
+            } else if chanceOfRain > 60 || chanceOfSnow > 60 {
                 condition -= 9
             }
             return condition * 0.2
         }
 
-        let runningConditions =  Int(round(getTempFactor() + getRainFactor() + getWindFactor() + getHumidityFactor()))
+        let runningConditions =  Int(round(getTempFactor() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
      
         return runningConditions
     }

@@ -91,6 +91,7 @@ struct WeatherManager {
                     let hourlyFeelsLike = decodedData.forecast.forecastday[i].hour[nextHour].feelslike_f
                     let hourlyConditionId = decodedData.forecast.forecastday[i].hour[nextHour].condition.code
                     let hourlyIsDay = decodedData.forecast.forecastday[i].hour[nextHour].is_day
+                    let hourlySnow = decodedData.forecast.forecastday[i].hour[nextHour].chance_of_snow
                     
                     let hourlyCurrentHour = nextHour
                     
@@ -102,6 +103,7 @@ struct WeatherManager {
                                                      windSpeed: hourlyWind,
                                                      uvRating: uv,
                                                      chanceOfRain: Double(hourlyRain) ?? 0,
+                                                     chanceOfSnow: Double(hourlySnow) ?? 0,
                                                      currentHour: hourlyCurrentHour,
                                                      isDay: hourlyIsDay,
                                                      hoursArray: [])
@@ -117,6 +119,7 @@ struct WeatherManager {
             let feelsLike = decodedData.current.feelslike_f
             let conditionId = decodedData.current.condition.code
             let isDay = decodedData.forecast.forecastday[0].hour[currentHour].is_day
+            let snow = decodedData.forecast.forecastday[0].hour[currentHour].chance_of_snow
             
             
             let currentWeather = WeatherModel(conditionId: conditionId,
@@ -127,6 +130,7 @@ struct WeatherManager {
                                        windSpeed: wind,
                                        uvRating: uv,
                                        chanceOfRain: Double(rain) ?? 0,
+                                       chanceOfSnow: Double(snow) ?? 0,
                                        currentHour: currentHour,
                                        isDay: isDay,
                                        hoursArray: futureWeather)

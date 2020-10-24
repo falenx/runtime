@@ -45,6 +45,7 @@ class WeatherViewController: UIViewController{
         // Do any additional setup after loading the view.
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        //locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
         
         
@@ -134,6 +135,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
+            print(lat,lon)
             weatherManager.fetchWeather(latitude: lat, longitude: lon)
             
         }
