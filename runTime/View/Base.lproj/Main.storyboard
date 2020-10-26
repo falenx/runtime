@@ -19,7 +19,7 @@
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="JVv-H8-7AR"/>
+                        <segue destination="wPM-ub-c10" kind="relationship" relationship="viewControllers" id="MJQ-Gm-30o"/>
                         <segue destination="ru5-3U-TLf" kind="relationship" relationship="viewControllers" id="2I8-rb-i2v"/>
                     </connections>
                 </tabBarController>
@@ -28,6 +28,23 @@
             <point key="canvasLocation" x="-2313" y="864"/>
         </scene>
         <!--Today-->
+        <scene sceneID="ihp-0T-bhW">
+            <objects>
+                <navigationController id="wPM-ub-c10" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Today" id="wnj-rm-QnF"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0ay-yG-m7R">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5Xj-Aj-Dzp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="USx-UI-tBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1236" y="864"/>
+        </scene>
+        <!--RunTime-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="WeatherViewController" customModule="runTime" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,10 +53,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZyA-VY-rcP">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HuG-xs-7Ov">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="369"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HuG-xs-7Ov">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="380"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cje-gS-Xlr" userLabel="searchStackView">
                                                 <rect key="frame" x="25" y="0.0" width="364" height="40"/>
@@ -63,20 +80,20 @@
                                                     </textField>
                                                 </subviews>
                                             </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-Jq-z5M" userLabel="currentConditionsLabel">
-                                                <rect key="frame" x="0.0" y="50" width="414" height="319"/>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-Jq-z5M" userLabel="currentConditionsLabel">
+                                                <rect key="frame" x="0.0" y="50" width="414" height="330"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="njc-cT-mAm" userLabel="currentConditionsStackView">
-                                                        <rect key="frame" x="25" y="10" width="364" height="279"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="njc-cT-mAm" userLabel="currentConditionsStackView">
+                                                        <rect key="frame" x="25" y="10" width="364" height="290"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGP-ee-Cht" userLabel="Current City">
-                                                                <rect key="frame" x="130" y="0.0" width="104" height="19"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGP-ee-Cht" userLabel="Current City">
+                                                                <rect key="frame" x="130" y="0.0" width="104" height="30"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6lu-uq-h9y">
-                                                                <rect key="frame" x="52" y="49" width="260" height="120"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6lu-uq-h9y">
+                                                                <rect key="frame" x="52" y="60" width="260" height="120"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.rain" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bg7-cz-z0g" userLabel="currentWeatherImage">
                                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="121.5"/>
@@ -93,14 +110,14 @@
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZt-o5-APE">
-                                                                <rect key="frame" x="157" y="199" width="50" height="50"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZt-o5-APE">
+                                                                <rect key="frame" x="157" y="210" width="50" height="50"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-0k-yK0">
-                                                                <rect key="frame" x="182" y="279" width="0.0" height="0.0"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-0k-yK0">
+                                                                <rect key="frame" x="182" y="290" width="0.0" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -122,14 +139,14 @@
                                             <constraint firstItem="Cje-gS-Xlr" firstAttribute="leading" secondItem="HuG-xs-7Ov" secondAttribute="leading" constant="25" id="uOk-Uq-F2J"/>
                                         </constraints>
                                     </stackView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="400" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OxG-3D-ghp" userLabel="hourlyTableView">
-                                        <rect key="frame" x="0.0" y="369" width="414" height="400"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="400" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OxG-3D-ghp" userLabel="hourlyTableView">
+                                        <rect key="frame" x="0.0" y="380" width="414" height="389"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="HuG-xs-7Ov" firstAttribute="top" secondItem="ZyA-VY-rcP" secondAttribute="top" id="HQN-uo-1GO"/>
+                                    <constraint firstItem="HuG-xs-7Ov" firstAttribute="top" secondItem="ZyA-VY-rcP" secondAttribute="top" constant="15" id="HQN-uo-1GO"/>
                                     <constraint firstItem="HuG-xs-7Ov" firstAttribute="leading" secondItem="ZyA-VY-rcP" secondAttribute="leading" id="Vqa-th-0a5"/>
                                     <constraint firstAttribute="trailing" secondItem="HuG-xs-7Ov" secondAttribute="trailing" id="ZZU-ag-a0u"/>
                                     <constraint firstItem="OxG-3D-ghp" firstAttribute="leading" secondItem="ZyA-VY-rcP" secondAttribute="leading" id="c6B-y8-Fie"/>
@@ -149,7 +166,13 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Today" id="emj-Z0-Eyn"/>
-                    <navigationItem key="navigationItem" id="k8n-Te-NR2"/>
+                    <navigationItem key="navigationItem" title="RunTime" id="qGt-bf-JmH">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" image="gearshape" catalog="system" id="rQQ-2u-Y5f">
+                            <connections>
+                                <action selector="settingsButtonPressed:" destination="BYZ-38-t0r" id="2Q4-VN-FB9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="currentCityLabel" destination="mGP-ee-Cht" id="Ex5-h4-81p"/>
                         <outlet property="currentConditionsLabel" destination="TZt-o5-APE" id="kNA-he-OuU"/>
@@ -158,11 +181,41 @@
                         <outlet property="currentWeatherImageView" destination="bg7-cz-z0g" id="wem-KP-I4H"/>
                         <outlet property="hourlyTableView" destination="OxG-3D-ghp" id="GWx-TU-3pJ"/>
                         <outlet property="searchTextField" destination="wJK-8G-xI2" id="xCA-Y8-ebZ"/>
+                        <segue destination="fSS-Ma-rYr" kind="show" identifier="toSettingsViewController" id="UVP-du-kIB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220.28985507246378" y="123.88392857142857"/>
+            <point key="canvasLocation" x="-230" y="864"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="WUw-FM-5u7">
+            <objects>
+                <tableViewController id="fSS-Ma-rYr" customClass="SettingsTableViewController" customModule="runTime" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XVf-Xt-rGg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuse" id="knn-R6-cmk">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="knn-R6-cmk" id="nGj-5C-Ud5">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fSS-Ma-rYr" id="8FB-4d-rxW"/>
+                            <outlet property="delegate" destination="fSS-Ma-rYr" id="oUN-FP-pYo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="pgc-Qy-YRt"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wQu-fg-iWI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1001" y="872"/>
         </scene>
         <!--Tomorrow-->
         <scene sceneID="xKG-b0-IM0">
@@ -181,11 +234,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfW-OV-3KX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-165" y="1008"/>
+            <point key="canvasLocation" x="-1378" y="1667"/>
         </scene>
     </scenes>
     <resources>
         <image name="cloud.rain" catalog="system" width="128" height="125"/>
+        <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="location" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

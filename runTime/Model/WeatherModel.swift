@@ -10,17 +10,23 @@ import Foundation
 struct WeatherModel {
     let conditionId: Int
     let cityName: String
-    let temperature: Double
+    let temperatureF: Double
+    let temperatureC: Double
     let humidity: Double
-    let feelsLike: Double
+    let feelsLikeF: Double
+    let feelsLikeC: Double
     let windSpeed: Double
     let uvRating: Double
     let chanceOfRain: Double
     let chanceOfSnow: Double
     let currentHour: Int
     let isDay: Int
-    var temperatureString: String {
-        return String(format: "%.1f", feelsLike)
+    let isCelcius: Bool
+    var temperatureStringF: String {
+        return String(format: "%.1f", feelsLikeF)
+    }
+    var temperatureStringC: String {
+        return String(format: "%.1f", feelsLikeC)
     }
     
     
@@ -98,7 +104,6 @@ struct WeatherModel {
     
     
     
-    
     func getRunningConditions() -> Int {
         // ideal running temperatures between 55 and 73 degrees
         //humidity under 40% does not have a significant effect
@@ -108,16 +113,17 @@ struct WeatherModel {
         //light rain running is at your own risk, anything more should be avoided
         //var runningConditions = 10
         
-        let idealTemp = 60.0
+        let idealTempF = 60.0
         
-        func getTempFactor() -> Double {
+        
+        func getTempFactorF() -> Double {
             var condition = 10.0
             var tempOffset = 0.0
             
-            if temperature > idealTemp {
-                tempOffset = temperature - idealTemp
+            if temperatureF > idealTempF {
+                tempOffset = temperatureF - idealTempF
             } else {
-                tempOffset = idealTemp - temperature
+                tempOffset = idealTempF - temperatureF
             }
             
             if (10...14.9).contains(tempOffset) {
@@ -129,6 +135,8 @@ struct WeatherModel {
             }
             return condition * 0.4
         }
+        
+        
         
         func getHumidityFactor() -> Double {
             var condition = 10.0
@@ -144,7 +152,6 @@ struct WeatherModel {
             
         }
         
-        
         func getWindFactor() -> Double {
             var condition = 10.0
             
@@ -155,7 +162,6 @@ struct WeatherModel {
             }
             return condition * 0.1
         }
-
         
         func getPrecipitationFactor() -> Double {
             var condition = 10.0
@@ -170,13 +176,12 @@ struct WeatherModel {
             return condition * 0.2
         }
 
-        let runningConditions =  Int(round(getTempFactor() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
-     
+       
+        let runningConditions =  Int(round(getTempFactorF() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
+        
         return runningConditions
+        
+     
     }
-    
-    
-    
-    
     
 }

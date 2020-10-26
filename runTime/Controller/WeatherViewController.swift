@@ -16,6 +16,7 @@ class WeatherViewController: UIViewController{
     
     
 
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var currentCityLabel: UILabel!
     @IBOutlet weak var currentWeatherImageView: UIImageView!
@@ -33,10 +34,15 @@ class WeatherViewController: UIViewController{
         locationManager.requestLocation()
     }
     
+    @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "toSettingsViewController", sender: self)
+    }
     
     
     
     
+    
+    var isCelcius: Bool = false
     
     
     override func viewDidLoad() {
@@ -47,9 +53,9 @@ class WeatherViewController: UIViewController{
         //locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
         
+        isCelcius = false
         
         hourlyTableView.dataSource = self
-        
         
         weatherManager.delegate = self
         searchTextField.delegate = self
@@ -66,7 +72,6 @@ class WeatherViewController: UIViewController{
         
         
     }
-    
     
     @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
       guard let tabBarController = tabBarController, let viewControllers = tabBarController.viewControllers else { return }
@@ -131,7 +136,11 @@ extension WeatherViewController: UITextFieldDelegate {
 extension WeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            self.currentConditionsLabel.text = weather.temperatureString + "°"
+            if weather.isCelcius {
+                self.currentConditionsLabel.text = weather.temperatureStringC + "°"
+            } else {
+                self.currentConditionsLabel.text = weather.temperatureStringF + "°"
+            }
             self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
             self.currentCityLabel.text = weather.cityName
             self.currentConditionsStatementLabel.text = weather.conditionStatement
@@ -139,7 +148,6 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(String(weather.getRunningConditions()))
             self.weather = weather
             self.hourlyTableView.reloadData()
-            //self.date = getDate()
             self.view.layoutIfNeeded()
             WeatherModelStore.shared.updateModel(weather)
         }
@@ -158,7 +166,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            print(lat,lon)
+
             weatherManager.fetchWeather(latitude: lat, longitude: lon)
             
         }
@@ -183,9 +191,13 @@ extension WeatherViewController: UITableViewDataSource {
         let index = (weather?.currentHour ?? 0) + indexPath.row + 1
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
+        if isCelcius {
+            cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
+        } else {
+            cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
+        }
         cell.runningConditionsLabel.text = String(hour?.getRunningConditions() ?? 0)
-        cell.runningConditionsLabel.textColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
+        cell.backgroundColorView.backgroundColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
         cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
         if (hour?.currentHour ?? 0 > 11) {
@@ -206,7 +218,7 @@ extension WeatherViewController: UITableViewDataSource {
         } else if (7...9).contains(conditionRecieved ?? 0) {
             return UIColor(red: 118/256, green: 255/256, blue: 0/256, alpha: 1.0)
         } else if (4...6).contains(conditionRecieved ?? 0) {
-            return UIColor.yellow
+            return UIColor(red: 255/256, green: 204/256, blue: 0/256, alpha: 1.0)
         } else {
             return UIColor.red
         }

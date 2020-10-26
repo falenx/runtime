@@ -16,6 +16,7 @@ class HourlyWeatherCell: UITableViewCell {
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var chanceOfRainLabel: UILabel!
     @IBOutlet weak var currentHourLabel: UILabel!
+    @IBOutlet weak var backgroundColorView: UIView!
     
     
     
@@ -27,12 +28,21 @@ class HourlyWeatherCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColorView.layer.cornerRadius = backgroundColorView.bounds.size.width/2
+        backgroundColorView.clipsToBounds = true
+        backgroundColorView.layer.borderColor = UIColor.white.cgColor
+        backgroundColorView.layer.borderWidth = 1.0
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundColorView.layer.cornerRadius = backgroundColorView.bounds.size.width/2
     }
     
 }

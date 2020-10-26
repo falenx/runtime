@@ -20,9 +20,11 @@ struct APILocation: Decodable {
 
 struct APICurrent: Decodable {
     let temp_f: Double
+    let temp_c: Double
     let wind_mph: Double
     let humidity: Double
     let feelslike_f: Double
+    let feelslike_c: Double
     let uv: Double
     let condition: APICondition
     let is_day: Int
@@ -42,8 +44,10 @@ struct APIHour: Decodable {
     let condition: APICondition
     let wind_mph: Double
     let temp_f: Double
+    let temp_c: Double
     let humidity: Double
     let feelslike_f: Double
+    let feelslike_c: Double
     let is_day: Int
 }
 

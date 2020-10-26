@@ -37,6 +37,8 @@ struct WeatherManager {
         performRequest(with: urlString)
     }
     
+    var isCelcius: Bool = false
+    
     func performRequest(with urlString: String) {
         
         
@@ -76,23 +78,28 @@ struct WeatherManager {
                     let hourlyRain = decodedData.forecast.forecastday[i].hour[nextHour].chance_of_rain
                     let hourlyHumidity = decodedData.forecast.forecastday[i].hour[nextHour].humidity
                     let hourlyFeelsLike = decodedData.forecast.forecastday[i].hour[nextHour].feelslike_f
+                    let hourlyFeelsLikeC = decodedData.forecast.forecastday[i].hour[nextHour].feelslike_c
                     let hourlyConditionId = decodedData.forecast.forecastday[i].hour[nextHour].condition.code
                     let hourlyIsDay = decodedData.forecast.forecastday[i].hour[nextHour].is_day
                     let hourlySnow = decodedData.forecast.forecastday[i].hour[nextHour].chance_of_snow
+                    let hourlyTempC = decodedData.forecast.forecastday[i].hour[nextHour].temp_c
                     
                     let hourlyCurrentHour = nextHour
                     
                     let hourlyWeather = WeatherModel(conditionId: hourlyConditionId,
                                                      cityName: name,
-                                                     temperature: hourlyTemp,
+                                                     temperatureF: hourlyTemp,
+                                                     temperatureC: hourlyTempC,
                                                      humidity: hourlyHumidity,
-                                                     feelsLike: hourlyFeelsLike,
+                                                     feelsLikeF: hourlyFeelsLike,
+                                                     feelsLikeC: hourlyFeelsLikeC,
                                                      windSpeed: hourlyWind,
                                                      uvRating: uv,
                                                      chanceOfRain: Double(hourlyRain) ?? 0,
                                                      chanceOfSnow: Double(hourlySnow) ?? 0,
                                                      currentHour: hourlyCurrentHour,
                                                      isDay: hourlyIsDay,
+                                                     isCelcius: isCelcius,
                                                      hoursArray: [])
                     
                     
@@ -100,10 +107,12 @@ struct WeatherManager {
                 }
             }
             let temp = decodedData.current.temp_f
+            let tempC = decodedData.current.temp_c
             let wind = decodedData.current.wind_mph
             let rain = decodedData.forecast.forecastday[0].hour[currentHour].chance_of_rain
             let humidity = decodedData.current.humidity
             let feelsLike = decodedData.current.feelslike_f
+            let feelsLikeC = decodedData.current.feelslike_c
             let conditionId = decodedData.current.condition.code
             let isDay = decodedData.forecast.forecastday[0].hour[currentHour].is_day
             let snow = decodedData.forecast.forecastday[0].hour[currentHour].chance_of_snow
@@ -111,15 +120,18 @@ struct WeatherManager {
             
             let currentWeather = WeatherModel(conditionId: conditionId,
                                        cityName: name,
-                                       temperature: temp,
+                                       temperatureF: temp,
+                                       temperatureC: tempC,
                                        humidity: humidity,
-                                       feelsLike: feelsLike,
+                                       feelsLikeF: feelsLike,
+                                       feelsLikeC: feelsLikeC,
                                        windSpeed: wind,
                                        uvRating: uv,
                                        chanceOfRain: Double(rain) ?? 0,
                                        chanceOfSnow: Double(snow) ?? 0,
                                        currentHour: currentHour,
                                        isDay: isDay,
+                                       isCelcius: isCelcius,
                                        hoursArray: futureWeather)
             
             

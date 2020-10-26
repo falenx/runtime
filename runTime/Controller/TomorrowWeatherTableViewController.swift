@@ -14,8 +14,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    
-    
+    var isCelcius: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +26,8 @@ class TomorrowWeatherTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        isCelcius = false
+        
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
         swipeRight.direction = .right
@@ -42,7 +43,6 @@ class TomorrowWeatherTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         weather = WeatherModelStore.shared.model
-        
         
         
     }
@@ -67,9 +67,13 @@ class TomorrowWeatherTableViewController: UITableViewController {
         let index = 24 + indexPath.row
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        cell.feelsLikeLabel.text = String(hour?.feelsLike ?? 0) + "°"
+        if isCelcius {
+            cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
+        } else {
+            cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
+        }
         cell.runningConditionsLabel.text = String(hour?.getRunningConditions() ?? 0)
-        cell.runningConditionsLabel.textColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
+        cell.backgroundColorView.backgroundColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
         cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
         if (hour?.currentHour ?? 0 > 12) {
@@ -91,7 +95,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
         } else if (7...9).contains(conditionRecieved ?? 0) {
             return UIColor(red: 118/256, green: 255/256, blue: 0/256, alpha: 1.0)
         } else if (4...6).contains(conditionRecieved ?? 0) {
-            return UIColor.yellow
+            return UIColor(red: 255/256, green: 204/256, blue: 0/256, alpha: 1.0)
         } else {
             return UIColor.red
         }
