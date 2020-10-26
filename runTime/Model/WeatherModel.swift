@@ -23,6 +23,7 @@ struct WeatherModel {
         return String(format: "%.1f", feelsLike)
     }
     
+    
     var hoursArray: [WeatherModel]
     
     var conditionName: String {
@@ -34,13 +35,17 @@ struct WeatherModel {
                 return "cloud.sun"
             case 1006...1009:
                 return "cloud"
-            case 1183...1189:
+            case 1183...1189, 1063, 1150, 1153, 1168, 1171, 1180, 1240:
                 return "cloud.drizzle"
-            case 1195, 1243, 1246:
+            case 1192, 1195, 1198, 1201, 1243, 1246:
                 return "cloud.heavyrain"
-            case 1213...1219:
+            case 1087, 1273, 1276, 1279, 1282:
+                return "cloud.bolt"
+            case 1213...1219, 1066, 1069, 1072, 1114, 1204, 1207, 1210, 1249, 1252, 1255, 1261, 1264:
                 return "cloud.snow"
-            case 1225:
+            case 1135,1147, 1030:
+                return "cloud.fog"
+            case 1225,1117, 1222, 1237, 1258:
                 return "snow"
             default:
                 return "sun.min"
@@ -54,13 +59,17 @@ struct WeatherModel {
                 return "cloud.moon"
             case 1006...1009:
                 return "cloud"
-            case 1183...1189:
+            case 1183...1189,1063,1150, 1153, 1168, 1171, 1180, 1240:
                 return "cloud.drizzle"
-            case 1195, 1243, 1246:
+            case 1192, 1195, 1198, 1201, 1243, 1246:
                 return "cloud.moon.rain"
-            case 1213...1219:
+            case 1087, 1273, 1276, 1279, 1282:
+                return "cloud.bolt"
+            case 1213...1219, 1066, 1069, 1072, 1114, 1204, 1207, 1210, 1249, 1252, 1255, 1261, 1264:
                 return "cloud.snow"
-            case 1225:
+            case 1135,1147, 1030:
+                return "cloud.fog"
+            case 1225,1117, 1222, 1237, 1258:
                 return "snow"
             default:
                 return "moon"
@@ -165,6 +174,7 @@ struct WeatherModel {
      
         return runningConditions
     }
+    
     
     
     

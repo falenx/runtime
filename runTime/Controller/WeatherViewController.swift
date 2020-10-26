@@ -95,7 +95,7 @@ extension WeatherViewController: UITextFieldDelegate {
             return true
         } else {
             textField.placeholder = "Enter a city to search for"
-            return false
+            return true
         }
     }
     
