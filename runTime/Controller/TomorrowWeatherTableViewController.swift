@@ -22,18 +22,28 @@ class TomorrowWeatherTableViewController: UITableViewController {
         
         tableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         weather = WeatherModelStore.shared.model
+        
+        
         
     }
 
@@ -53,8 +63,6 @@ class TomorrowWeatherTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "hourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
-        
-        
         
         let index = 24 + indexPath.row
         let hour = weather?.hoursArray[index]
@@ -88,6 +96,20 @@ class TomorrowWeatherTableViewController: UITableViewController {
             return UIColor.red
         }
     
+    }
+    
+    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+      guard let tabBarController = tabBarController, let viewControllers = tabBarController.viewControllers else { return }
+      let tabs = viewControllers.count
+      if gesture.direction == .left {
+          if (tabBarController.selectedIndex) < tabs {
+              tabBarController.selectedIndex += 1
+          }
+      } else if gesture.direction == .right {
+          if (tabBarController.selectedIndex) > 0 {
+              tabBarController.selectedIndex -= 1
+          }
+      }
     }
     
 

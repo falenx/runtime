@@ -6,15 +6,12 @@
 //
 
 import Foundation
-//MARK: - New Stuff
-
 
 struct APIWeatherData: Decodable {
     let location: APILocation
     let current: APICurrent
     let forecast: APIForecast
 }
-
 
 struct APILocation: Decodable {
     let name: String
