@@ -62,6 +62,10 @@ class WeatherViewController: UIViewController{
         
         hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
+        
+        
+        
+        
     }
     
     

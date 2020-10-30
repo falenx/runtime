@@ -6,18 +6,52 @@
 //
 
 import UIKit
+import CoreData
+import Foundation
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    var settings = SettingsModel()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
+        tableView.register(UINib(nibName: "PreferenceSwitchCell", bundle: nil), forCellReuseIdentifier: "preferenceSwitchCell")
+        tableView.register(UINib(nibName: "PreferenceEntryCell", bundle: nil), forCellReuseIdentifier: "preferenceEntryCell")
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      //1
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+      
+      let managedContext = appDelegate.persistentContainer.viewContext
+      
+      //2
+      let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
+      
+      //3
+      do {
+        settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
+      } catch let error as NSError {
+        print("Could not fetch. \(error), \(error.userInfo)")
+      }
+    }
+    
+    
 
     // MARK: - Table view data source
 
@@ -33,27 +67,121 @@ class SettingsTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuse", for: indexPath)
         
-        if indexPath.row == 0 {
-            cell.textLabel?.text = "Use celcius"
-        } else if indexPath.row == 1 {
-            cell.textLabel?.text = "Ignore rain"
-        } else if indexPath.row == 2 {
-            cell.textLabel?.text  = "Ideal running humidity"
-        } else if indexPath.row == 3 {
-            cell.textLabel?.text = "Ideal wind speed"
+        if indexPath.row < 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceSwitchCell", for: indexPath) as! PreferenceSwitchCell
+            if indexPath.row == 0 {
+                cell.preferenceSwitchLabel.text = settings.settingsArray[indexPath.row]
+                cell.preferenceSwitch.isOn = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool ?? false
+            } else {
+                cell.preferenceSwitchLabel.text = settings.settingsArray[indexPath.row]
+                cell.preferenceSwitch.isOn = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool ?? false
+            }
+            
+            return cell
         } else {
-            cell.textLabel?.text = "Ideal running temperature"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceEntryCell", for: indexPath) as! PreferenceEntryCell
+            if indexPath.row == 2 {
+                cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
+                //cell.preferenceTextField.placeholder = String(format: "%.0f", settings.idealHumidity ?? 0)
+            } else if indexPath.row == 3 {
+                cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
+                //cell.preferenceTextField.placeholder = String(format: "%.0f",settings.idealWindSpeed ?? 0)
+            } else {
+                cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
+                //cell.preferenceTextField.placeholder = String(format: "%.0f",settings.idealTemperature ?? 60)
+            }
+            
+            return cell
+            
         }
+
         
-
-        // Configure the cell...
-
-        return cell
     }
     
+    func save(isCelsius: Bool) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+          }
+          
+        let managedContext = appDelegate.persistentContainer.viewContext
+          
 
+        let entity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
+          
+        let setting = NSManagedObject(entity: entity, insertInto: managedContext)
+          
+        setting.setValue(isCelsius, forKeyPath: "isCelsius")
+        
+        print("celsius is being saved as ")
+        print(isCelsius)
+          
+        do {
+            try managedContext.save()
+            print("saved")
+            settings.savedSettingsArray.append(setting)
+            
+          } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+          }
+    }
+    
+    func save(ignoreRain: Bool) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+          }
+          
+          let managedContext = appDelegate.persistentContainer.viewContext
+          
+          let entity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
+          
+          let setting = NSManagedObject(entity: entity, insertInto: managedContext)
+          
+          setting.setValue(ignoreRain, forKeyPath: "ignoreRain")
+          
+          do {
+            try managedContext.save()
+            settings.savedSettingsArray.append(setting)
+            
+          } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+          }
+
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row < 2 {
+            if indexPath.row == 0 {
+                //let condition = (settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius"))
+                
+                //let cell = tableView.cellForRow(at: indexPath) as! PreferenceSwitchCell
+
+                if (settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") != nil) {
+                    print("celsius is true")
+                    save(isCelsius: false)
+                    
+                } else {
+                    print("celsius is false")
+                    save(isCelsius: true)
+                }
+            } else {
+                if (settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") != nil) == true {
+                    save(ignoreRain: false)
+                } else {
+                    save(ignoreRain: true)
+                }
+            }
+            
+            
+        }
+        tableView.reloadData()
+        print("reloaded data")
+    }
+    
+    
+    
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -100,3 +228,10 @@ class SettingsTableViewController: UITableViewController {
     */
 
 }
+
+
+
+
+
+
+
