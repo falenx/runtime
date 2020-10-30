@@ -116,7 +116,7 @@ struct WeatherModel {
         let idealTempF = 60.0
         
         
-        func getTempFactorF() -> Double {
+        func getTempFactor() -> Double {
             var condition = 10.0
             var tempOffset = 0.0
             
@@ -177,7 +177,7 @@ struct WeatherModel {
         }
 
        
-        let runningConditions =  Int(round(getTempFactorF() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
+        let runningConditions =  Int(round(getTempFactor() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
         
         return runningConditions
         

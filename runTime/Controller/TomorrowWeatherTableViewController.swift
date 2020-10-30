@@ -27,15 +27,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         isCelcius = false
-        
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
-        swipeRight.direction = .right
-        self.view.addGestureRecognizer(swipeRight)
 
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture))
-        swipeLeft.direction = .left
-        self.view.addGestureRecognizer(swipeLeft)
         
     }
     
@@ -76,7 +68,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
         cell.backgroundColorView.backgroundColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
         cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
         cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
-        if (hour?.currentHour ?? 0 > 12) {
+        if (hour?.currentHour ?? 0 > 11) {
             cell.currentHourLabel.text = String(dateConvert(date: hour?.currentHour ?? 0)) + " PM"
         } else if (hour?.currentHour ?? 0 == 0){
             cell.currentHourLabel.text = String(12) + " AM"
@@ -100,20 +92,6 @@ class TomorrowWeatherTableViewController: UITableViewController {
             return UIColor.red
         }
     
-    }
-    
-    @objc func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
-      guard let tabBarController = tabBarController, let viewControllers = tabBarController.viewControllers else { return }
-      let tabs = viewControllers.count
-      if gesture.direction == .left {
-          if (tabBarController.selectedIndex) < tabs {
-              tabBarController.selectedIndex += 1
-          }
-      } else if gesture.direction == .right {
-          if (tabBarController.selectedIndex) > 0 {
-              tabBarController.selectedIndex -= 1
-          }
-      }
     }
     
 
