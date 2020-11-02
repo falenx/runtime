@@ -37,7 +37,9 @@ struct WeatherManager {
         performRequest(with: urlString)
     }
     
-    var isCelcius: Bool = false
+    
+    
+    
     
     func performRequest(with urlString: String) {
         
@@ -63,6 +65,8 @@ struct WeatherManager {
     
     func parseJSON(_ weatherData: Data) -> WeatherModel? {
         let decoder = JSONDecoder()
+        let isCelsius = SettingsModelStore.shared.model?.isCelsius
+
         do {
             let decodedData = try decoder.decode(APIWeatherData.self, from: weatherData)
             
@@ -99,7 +103,7 @@ struct WeatherManager {
                                                      chanceOfSnow: Double(hourlySnow) ?? 0,
                                                      currentHour: hourlyCurrentHour,
                                                      isDay: hourlyIsDay,
-                                                     isCelcius: isCelcius,
+                                                     isCelsius: isCelsius ?? false,
                                                      hoursArray: [])
                     
                     
@@ -131,7 +135,7 @@ struct WeatherManager {
                                        chanceOfSnow: Double(snow) ?? 0,
                                        currentHour: currentHour,
                                        isDay: isDay,
-                                       isCelcius: isCelcius,
+                                       isCelsius: isCelsius ?? false,
                                        hoursArray: futureWeather)
             
             

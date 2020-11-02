@@ -11,7 +11,16 @@ import Foundation
 
 class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
-    var settings = SettingsModel()
+    var settings = SettingsModel(){
+        didSet {
+            tableView.reloadData()
+            print("reloaded data")
+        }
+    }
+    
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     
 
     override func viewDidLoad() {
@@ -31,27 +40,24 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      //1
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return
-      }
-      
-      let managedContext = appDelegate.persistentContainer.viewContext
-      
-      //2
-      let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
-      
-      //3
-      do {
-        settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
-      } catch let error as NSError {
-        print("Could not fetch. \(error), \(error.userInfo)")
-      }
+        
+        super.viewWillAppear(animated)
+        print("loaded")
+        settings = SettingsModelStore.shared.model ?? SettingsModel()
+        fetchData()
+        settings.isCelsius = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool
+        print(settings.isCelsius)
+        settings.ignoreRain = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool
+        settings.idealTemperature = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? Double
+        settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double
+        settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double
+        SettingsModelStore.shared.updateModel(settings)
+        print(SettingsModelStore.shared.model?.isCelsius)
+        
+        
+        
+        
     }
-    
-    
 
     // MARK: - Table view data source
 
@@ -67,7 +73,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.row < 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceSwitchCell", for: indexPath) as! PreferenceSwitchCell
             if indexPath.row == 0 {
@@ -79,107 +84,104 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
             }
             
             return cell
+            
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceEntryCell", for: indexPath) as! PreferenceEntryCell
             if indexPath.row == 2 {
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                //cell.preferenceTextField.placeholder = String(format: "%.0f", settings.idealHumidity ?? 0)
+                cell.preferenceTextField.placeholder = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? String ?? "40"
             } else if indexPath.row == 3 {
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                //cell.preferenceTextField.placeholder = String(format: "%.0f",settings.idealWindSpeed ?? 0)
+                cell.preferenceTextField.placeholder = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? String ?? "2"
             } else {
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                //cell.preferenceTextField.placeholder = String(format: "%.0f",settings.idealTemperature ?? 60)
+                cell.preferenceTextField.placeholder = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? String ?? "65"
             }
             
             return cell
             
         }
 
-        
     }
     
-    func save(isCelsius: Bool) {
+    func fetchData() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-          }
-          
+          return
+        }
         let managedContext = appDelegate.persistentContainer.viewContext
-          
-
-        let entity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
-          
-        let setting = NSManagedObject(entity: entity, insertInto: managedContext)
-          
-        setting.setValue(isCelsius, forKeyPath: "isCelsius")
-        
-        print("celsius is being saved as ")
-        print(isCelsius)
-          
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
         do {
-            try managedContext.save()
-            print("saved")
-            settings.savedSettingsArray.append(setting)
-            
-          } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-          }
+            settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
-    func save(ignoreRain: Bool) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-          }
-          
-          let managedContext = appDelegate.persistentContainer.viewContext
-          
-          let entity = NSEntityDescription.entity(forEntityName: "Settings", in: managedContext)!
-          
-          let setting = NSManagedObject(entity: entity, insertInto: managedContext)
-          
-          setting.setValue(ignoreRain, forKeyPath: "ignoreRain")
-          
-          do {
-            try managedContext.save()
-            settings.savedSettingsArray.append(setting)
-            
-          } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-          }
-
+    func deletePreviousValues() {
+        if settings.savedSettingsArray.count >= 1 {
+            context.delete((settings.savedSettingsArray[0]))
+        }
+    }
+    func saveContext() {
+        let newSetting = Settings(context: context)
+        newSetting.isCelsius = SettingsModelStore.shared.model?.isCelsius ?? false
+        newSetting.ignoreRain = SettingsModelStore.shared.model?.ignoreRain ?? false
+        newSetting.idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40
+        newSetting.idealWindSpeed = SettingsModelStore.shared.model?.idealWindSpeed ?? 2
+        newSetting.idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
+        do {
+            try context.save()
+        } catch {
+            print("error saving context \(error)")
+        }
+    }
+    
+    func executeDataChange() {
+        SettingsModelStore.shared.updateModel(settings)
+        deletePreviousValues()
+        saveContext()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if indexPath.row < 2 {
             if indexPath.row == 0 {
-                //let condition = (settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius"))
-                
-                //let cell = tableView.cellForRow(at: indexPath) as! PreferenceSwitchCell
-
                 if (settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") != nil) {
-                    print("celsius is true")
-                    save(isCelsius: false)
-                    
+                    if settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Int == 1 {
+                        settings.isCelsius = false
+                        executeDataChange()
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    } else {
+                        settings.isCelsius = true
+                        executeDataChange()
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    }
                 } else {
-                    print("celsius is false")
-                    save(isCelsius: true)
+                    settings.isCelsius = true
+                    executeDataChange()
+                    tableView.deselectRow(at: indexPath, animated: true)
                 }
             } else {
-                if (settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") != nil) == true {
-                    save(ignoreRain: false)
+                if (settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") != nil) {
+                    if settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Int ==  1 {
+                        settings.ignoreRain = false
+                        executeDataChange()
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    } else {
+                        settings.ignoreRain = true
+                        executeDataChange()
+                        tableView.deselectRow(at: indexPath, animated: true)
+                    }
                 } else {
-                    save(ignoreRain: true)
+                    settings.ignoreRain = true
+                    executeDataChange()
+                    tableView.deselectRow(at: indexPath, animated: true)
                 }
+                
             }
-            
-            
+            fetchData()
         }
-        tableView.reloadData()
-        print("reloaded data")
-    }
-    
-    
-    
+}
     
     
     /*

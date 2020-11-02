@@ -21,7 +21,7 @@ struct WeatherModel {
     let chanceOfSnow: Double
     let currentHour: Int
     let isDay: Int
-    let isCelcius: Bool
+    let isCelsius: Bool
     var temperatureStringF: String {
         return String(format: "%.1f", feelsLikeF)
     }

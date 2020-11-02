@@ -11,10 +11,6 @@ import CoreLocation
 
 
 class WeatherViewController: UIViewController{
-    
-    
-    
-    
 
     
     @IBOutlet weak var searchTextField: UITextField!
@@ -39,12 +35,6 @@ class WeatherViewController: UIViewController{
     }
     
     
-    
-    
-    
-    var isCelcius: Bool = false
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -53,8 +43,6 @@ class WeatherViewController: UIViewController{
         //locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
         
-        isCelcius = false
-        
         hourlyTableView.dataSource = self
         
         weatherManager.delegate = self
@@ -62,12 +50,10 @@ class WeatherViewController: UIViewController{
         
         hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
-        
-        
-        
-        
+        //find where the db is
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+                
     }
-    
     
 }
 
@@ -77,11 +63,6 @@ func dateConvert(date: Int) -> Int {
     }
     return date - 12
 }
-
-
-
-
-
 
 //MARK: - UITextFieldDelegate
 
@@ -109,9 +90,6 @@ extension WeatherViewController: UITextFieldDelegate {
             return true
         }
     }
-    
-    
-    
 }
 
 //MARK: - WeatherManagerDelegate
@@ -119,7 +97,7 @@ extension WeatherViewController: UITextFieldDelegate {
 extension WeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            if weather.isCelcius {
+            if weather.isCelsius {
                 self.currentConditionsLabel.text = weather.temperatureStringC + "°"
             } else {
                 self.currentConditionsLabel.text = weather.temperatureStringF + "°"
@@ -174,7 +152,7 @@ extension WeatherViewController: UITableViewDataSource {
         let index = (weather?.currentHour ?? 0) + indexPath.row + 1
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        if isCelcius {
+        if (hour?.isCelsius) ?? false {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
         } else {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
@@ -188,7 +166,6 @@ extension WeatherViewController: UITableViewDataSource {
         } else {
             cell.currentHourLabel.text = String(hour?.currentHour ?? 0) + " AM"
         }
-        //date = getDate()
         return cell
     }
     

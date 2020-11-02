@@ -14,6 +14,12 @@ struct SettingsModel {
     
     var savedSettingsArray: [NSManagedObject] = []
     
+    var isCelsius: Bool?
+    var ignoreRain: Bool?
+    var idealHumidity: Double?
+    var idealWindSpeed: Double?
+    var idealTemperature: Double?
+    
     
     
 }

@@ -27,6 +27,7 @@
 		EDB9FDB025310365003C7AB6 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */; };
 		EDD06960254C6680008DF6A2 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD0695F254C6680008DF6A2 /* SettingsModel.swift */; };
 		EDD06964254C8707008DF6A2 /* runTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDD06962254C8707008DF6A2 /* runTime.xcdatamodeld */; };
+		EDFE70D5255099830011EB30 /* SettingsModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFE70D4255099830011EB30 /* SettingsModelStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		EDD0695F254C6680008DF6A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsModel.swift; path = runTime/View/SettingsModel.swift; sourceTree = SOURCE_ROOT; };
 		EDD06963254C8707008DF6A2 /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
+		EDFE70D4255099830011EB30 /* SettingsModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModelStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,9 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				EDD0695F254C6680008DF6A2 /* SettingsModel.swift */,
+				EDFE70D4255099830011EB30 /* SettingsModelStore.swift */,
+				EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */,
 				ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */,
 				EDB9FDA72530E8CF003C7AB6 /* WeatherManager.swift */,
-				EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */,
 				EDB9FDAB2530FD27003C7AB6 /* WeatherData.swift */,
 				ED99E6CD2538B843006A3509 /* HourlyWeatherCell.swift */,
 				ED99E6CE2538B844006A3509 /* HourlyWeatherCell.xib */,
@@ -211,6 +214,7 @@
 				EDD06964254C8707008DF6A2 /* runTime.xcdatamodeld in Sources */,
 				EDB9FDAC2530FD27003C7AB6 /* WeatherData.swift in Sources */,
 				ED01E582253E235B0078AEBC /* TomorrowWeatherTableViewController.swift in Sources */,
+				EDFE70D5255099830011EB30 /* SettingsModelStore.swift in Sources */,
 				ED77FA28252A88BF0012DF0B /* AppDelegate.swift in Sources */,
 				ED62BC10254C640A00450EF6 /* PreferenceEntryCell.swift in Sources */,
 				EDB9FDA82530E8CF003C7AB6 /* WeatherManager.swift in Sources */,

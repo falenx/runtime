@@ -14,7 +14,6 @@ class TomorrowWeatherTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    var isCelcius: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        isCelcius = false
+        
 
         
     }
@@ -59,7 +58,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
         let index = 24 + indexPath.row
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        if isCelcius {
+        if (hour?.isCelsius) ?? false {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
         } else {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
