@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import CoreData
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel)
     func didFailWithError(error: Error)
 }
+
 
 func getDate(_ currentHour: String) -> Int {
     let formatter = DateFormatter()
@@ -36,9 +38,6 @@ struct WeatherManager {
         let urlString = "\(weatherURL)&q=\(latitude),\(longitude)"
         performRequest(with: urlString)
     }
-    
-    
-    
     
     
     func performRequest(with urlString: String) {

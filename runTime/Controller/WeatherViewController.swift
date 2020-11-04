@@ -7,11 +7,25 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 
 
 class WeatherViewController: UIViewController{
 
+    
+    var settings = SettingsModel(){
+        didSet {
+            if self.settings.isCelsius ?? false {
+                //losing degree symbol when changing isCelsius
+                self.currentConditionsLabel.text = weather?.temperatureStringC ?? "" + "°"
+            } else {
+                self.currentConditionsLabel.text = weather?.temperatureStringF ?? "" + "°"
+            }
+            self.hourlyTableView.reloadData()
+            
+        }
+    }
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var currentCityLabel: UILabel!
@@ -26,6 +40,7 @@ class WeatherViewController: UIViewController{
     
     var weather: WeatherModel?
     
+    
     @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
         locationManager.requestLocation()
     }
@@ -34,6 +49,8 @@ class WeatherViewController: UIViewController{
         performSegue(withIdentifier: "toSettingsViewController", sender: self)
     }
     
+    //var settings = SettingsModelStore.shared.model ?? SettingsModel()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +67,16 @@ class WeatherViewController: UIViewController{
         
         hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
+        fetchData()
+        
+        
         //find where the db is
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
                 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        settings = SettingsModelStore.shared.model!
     }
     
 }
@@ -95,9 +119,30 @@ extension WeatherViewController: UITextFieldDelegate {
 //MARK: - WeatherManagerDelegate
 
 extension WeatherViewController: WeatherManagerDelegate {
+    
+    func fetchData() {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
+        do {
+            settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
+            settings.isCelsius = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool
+            settings.ignoreRain = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool
+            settings.idealTemperature = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? Double
+            settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double
+            settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double
+            SettingsModelStore.shared.updateModel(settings)
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            if weather.isCelsius {
+            if self.settings.isCelsius ?? false {
                 self.currentConditionsLabel.text = weather.temperatureStringC + "°"
             } else {
                 self.currentConditionsLabel.text = weather.temperatureStringF + "°"
@@ -140,6 +185,9 @@ extension WeatherViewController: CLLocationManagerDelegate {
 
 
 extension WeatherViewController: UITableViewDataSource {
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 23 - (weather?.currentHour ?? 0)
         }
@@ -152,7 +200,7 @@ extension WeatherViewController: UITableViewDataSource {
         let index = (weather?.currentHour ?? 0) + indexPath.row + 1
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        if (hour?.isCelsius) ?? false {
+        if (settings.isCelsius) ?? false {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
         } else {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"

@@ -14,7 +14,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     var settings = SettingsModel(){
         didSet {
             tableView.reloadData()
-            print("reloaded data")
         }
     }
     
@@ -42,17 +41,15 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        print("loaded")
         settings = SettingsModelStore.shared.model ?? SettingsModel()
         fetchData()
         settings.isCelsius = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool
-        print(settings.isCelsius)
         settings.ignoreRain = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool
         settings.idealTemperature = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? Double
         settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double
         settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double
         SettingsModelStore.shared.updateModel(settings)
-        print(SettingsModelStore.shared.model?.isCelsius)
+
         
         
         

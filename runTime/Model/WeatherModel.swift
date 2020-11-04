@@ -113,17 +113,18 @@ struct WeatherModel {
         //light rain running is at your own risk, anything more should be avoided
         //var runningConditions = 10
         
-        let idealTempF = 60.0
+        let idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
+        let idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40
         
         
         func getTempFactor() -> Double {
             var condition = 10.0
             var tempOffset = 0.0
             
-            if temperatureF > idealTempF {
-                tempOffset = temperatureF - idealTempF
+            if temperatureF > idealTemperature {
+                tempOffset = temperatureF - idealTemperature
             } else {
-                tempOffset = idealTempF - temperatureF
+                tempOffset = idealTemperature - temperatureF
             }
             
             if (10...14.9).contains(tempOffset) {

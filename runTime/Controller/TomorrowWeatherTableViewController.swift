@@ -15,6 +15,14 @@ class TomorrowWeatherTableViewController: UITableViewController {
         }
     }
     
+    var settings: SettingsModel?{
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +42,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         weather = WeatherModelStore.shared.model
+        settings = SettingsModelStore.shared.model
         
         
     }
@@ -58,7 +67,7 @@ class TomorrowWeatherTableViewController: UITableViewController {
         let index = 24 + indexPath.row
         let hour = weather?.hoursArray[index]
         cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        if (hour?.isCelsius) ?? false {
+        if (settings?.isCelsius) ?? false {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
         } else {
             cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
