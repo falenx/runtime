@@ -129,11 +129,11 @@ extension WeatherViewController: WeatherManagerDelegate {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
         do {
             settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
-            settings.isCelsius = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool
-            settings.ignoreRain = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool
-            settings.idealTemperature = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? Double
-            settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double
-            settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double
+            settings.isCelsius = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool ?? false
+            settings.ignoreRain = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool ?? false
+            settings.idealTemperature = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? Double ?? 65
+            settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double ?? 2
+            settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double ?? 40
             SettingsModelStore.shared.updateModel(settings)
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")

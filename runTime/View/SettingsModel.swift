@@ -10,7 +10,7 @@ import CoreData
 
 struct SettingsModel {
     
-    let settingsArray = ["Use Celsius", "Ignore rain", "Ideal humidity", "Ideal wind speed", "Ideal temperature"]
+    let settingsArray = ["Use Celsius", "Ignore rain/snow", "Ideal humidity", "Ideal wind speed", "Ideal temperature"]
     
     var savedSettingsArray: [NSManagedObject] = []
     

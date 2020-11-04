@@ -115,9 +115,11 @@ struct WeatherModel {
         
         let idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
         let idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40
+        let idealWindSpeed = SettingsModelStore.shared.model?.idealWindSpeed ?? 2
+        print("current hour is ")
+        print(currentHour)
         
-        
-        func getTempFactor() -> Double {
+        func getTempFactor(_ factor: Double = 0.4) -> Double {
             var condition = 10.0
             var tempOffset = 0.0
             
@@ -126,6 +128,7 @@ struct WeatherModel {
             } else {
                 tempOffset = idealTemperature - temperatureF
             }
+            print(tempOffset)
             
             if (10...14.9).contains(tempOffset) {
                 condition -= 3
@@ -134,34 +137,49 @@ struct WeatherModel {
             } else if (26...100).contains(tempOffset) {
                 condition -= 9
             }
-            return condition * 0.4
+            return condition * factor
         }
         
         
         
-        func getHumidityFactor() -> Double {
+        func getHumidityFactor(_ factor: Double = 0.3) -> Double {
             var condition = 10.0
+            var humidityOffset = 0.0
             
-            if (40...49.9).contains(humidity) {
+            if humidity > idealHumidity {
+                humidityOffset = humidity - idealHumidity
+            }
+            print(humidityOffset)
+            
+            
+            if (5...14.9).contains(humidityOffset) {
                 condition -= 3
-            } else if (50...69.9).contains(humidity) {
+            } else if (15...29.9).contains(humidityOffset) {
                 condition -= 6
-            } else if (70...100).contains(humidity) {
+            } else if (30...100).contains(humidityOffset) {
                 condition -= 9
             }
-            return condition * 0.3
+            return condition * factor
             
         }
         
-        func getWindFactor() -> Double {
+        func getWindFactor(_ factor: Double = 0.2) -> Double {
             var condition = 10.0
+            var windSpeedOffset = 0.0
             
-            if (4...5).contains(windSpeed) {
+            if windSpeed > idealWindSpeed {
+                windSpeedOffset = windSpeed - idealWindSpeed
+            } else {
+                windSpeedOffset = idealWindSpeed - windSpeed
+            }
+            print("wind \(windSpeedOffset)")
+            
+            if (2...3.9).contains(windSpeedOffset) {
                 condition -= 3
-            } else if (5.1...6).contains(windSpeed) {
+            } else if (4...100).contains(windSpeedOffset) {
                 condition -= 6
             }
-            return condition * 0.1
+            return condition * factor
         }
         
         func getPrecipitationFactor() -> Double {
@@ -174,14 +192,19 @@ struct WeatherModel {
             } else if chanceOfRain > 60 || chanceOfSnow > 60 {
                 condition -= 9
             }
-            return condition * 0.2
+            return condition * 0.1
+        }
+        
+        if SettingsModelStore.shared.model?.ignoreRain ?? false{
+            let runningConditions = Int(round(getTempFactor(0.43) + getHumidityFactor(0.33) + getWindFactor(0.23)))
+            print("running conditions without rain \(runningConditions)")
+            return runningConditions
+        } else {
+            let runningConditions =  Int(round(getTempFactor() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
+            print("running conditions with rain \(runningConditions)")
+            return runningConditions
         }
 
-       
-        let runningConditions =  Int(round(getTempFactor() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
-        
-        return runningConditions
-        
      
     }
     

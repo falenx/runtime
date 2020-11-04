@@ -177,6 +177,14 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
                 
             }
             fetchData()
+        } else {
+            if indexPath.row == 2 {
+                
+            } else if indexPath.row == 3 {
+                
+            } else {
+                
+            }
         }
 }
     
