@@ -77,6 +77,9 @@
                                                         <rect key="frame" x="50" y="0.0" width="314" height="40"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <action selector="searchFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="e1O-5P-BQh"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                             </stackView>

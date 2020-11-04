@@ -17,10 +17,9 @@ class WeatherViewController: UIViewController{
     var settings = SettingsModel(){
         didSet {
             if self.settings.isCelsius ?? false {
-                //losing degree symbol when changing isCelsius
-                self.currentConditionsLabel.text = weather?.temperatureStringC ?? "" + "°"
+                self.currentConditionsLabel.text = ((weather?.temperatureStringC ?? "") + "°")
             } else {
-                self.currentConditionsLabel.text = weather?.temperatureStringF ?? "" + "°"
+                self.currentConditionsLabel.text = ((weather?.temperatureStringF ?? "") + "°")
             }
             self.hourlyTableView.reloadData()
             
@@ -36,14 +35,15 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var hourlyTableView: UITableView!
     
     var weatherManager = WeatherManager()
+    var citySearchManager = CitySearchManager()
     let locationManager = CLLocationManager()
+    
     
     var weather: WeatherModel?
     
     
-    @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
-        locationManager.requestLocation()
-    }
+    
+
     
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "toSettingsViewController", sender: self)
@@ -64,6 +64,7 @@ class WeatherViewController: UIViewController{
         
         weatherManager.delegate = self
         searchTextField.delegate = self
+        citySearchManager.delegate = self
         
         hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
@@ -71,7 +72,7 @@ class WeatherViewController: UIViewController{
         
         
         //find where the db is
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
                 
     }
     
@@ -91,7 +92,6 @@ func dateConvert(date: Int) -> Int {
 //MARK: - UITextFieldDelegate
 
 extension WeatherViewController: UITextFieldDelegate {
-    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
@@ -114,11 +114,18 @@ extension WeatherViewController: UITextFieldDelegate {
             return true
         }
     }
+    
+    @IBAction func searchFieldChanged(_ sender: UITextField) {
+        citySearchManager.fetchCities(cityName: searchTextField.text ?? "")
+    }
+    
+
 }
 
 //MARK: - WeatherManagerDelegate
 
 extension WeatherViewController: WeatherManagerDelegate {
+    
     
     func fetchData() {
         
@@ -160,6 +167,23 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
     
     func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+//MARK: - CitySearchManagerDelegate
+
+extension WeatherViewController: CitySearchManagerDelegate {
+    
+    func didUpdateSearch(_ citySearchManager: CitySearchManager, location: LocationModel) {
+        for i in location.names {
+            print(i)
+        }
+        
+        
+    }
+    
+    func didFailWithCityError(error: Error) {
         print(error)
     }
 }
