@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class PreferenceEntryCell: UITableViewCell {
     
     
@@ -23,6 +25,7 @@ class PreferenceEntryCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        
     }
     
 
@@ -30,10 +33,4 @@ class PreferenceEntryCell: UITableViewCell {
     
     
 }
-extension PreferenceEntryCell: UITextFieldDelegate {
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
-        return true
-    }
-}
+

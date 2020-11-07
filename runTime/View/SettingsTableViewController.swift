@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import Foundation
 
-class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
+class SettingsTableViewController: UITableViewController {
     
     var settings = SettingsModel(){
         didSet {
@@ -32,6 +32,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
+        
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -49,6 +50,7 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double
         settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double
         SettingsModelStore.shared.updateModel(settings)
+        
 
         
         
@@ -101,44 +103,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
 
     }
     
-    func fetchData() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
-        do {
-            settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
-    }
-    
-    func deletePreviousValues() {
-        if settings.savedSettingsArray.count >= 1 {
-            context.delete((settings.savedSettingsArray[0]))
-        }
-    }
-    func saveContext() {
-        let newSetting = Settings(context: context)
-        newSetting.isCelsius = SettingsModelStore.shared.model?.isCelsius ?? false
-        newSetting.ignoreRain = SettingsModelStore.shared.model?.ignoreRain ?? false
-        newSetting.idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40
-        newSetting.idealWindSpeed = SettingsModelStore.shared.model?.idealWindSpeed ?? 2
-        newSetting.idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
-        do {
-            try context.save()
-        } catch {
-            print("error saving context \(error)")
-        }
-    }
-    
-    func executeDataChange() {
-        SettingsModelStore.shared.updateModel(settings)
-        deletePreviousValues()
-        saveContext()
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row < 2 {
@@ -186,7 +150,48 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
                 
             }
         }
-}
+    }
+    
+    func fetchData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
+        do {
+            settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func deletePreviousValues() {
+        if settings.savedSettingsArray.count >= 1 {
+            context.delete((settings.savedSettingsArray[0]))
+        }
+    }
+    func saveContext() {
+        let newSetting = Settings(context: context)
+        newSetting.isCelsius = SettingsModelStore.shared.model?.isCelsius ?? false
+        newSetting.ignoreRain = SettingsModelStore.shared.model?.ignoreRain ?? false
+        newSetting.idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40
+        newSetting.idealWindSpeed = SettingsModelStore.shared.model?.idealWindSpeed ?? 2
+        newSetting.idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
+        do {
+            try context.save()
+        } catch {
+            print("error saving context \(error)")
+        }
+    }
+    
+    func executeDataChange() {
+        SettingsModelStore.shared.updateModel(settings)
+        deletePreviousValues()
+        saveContext()
+    }
+
+    
+    
     
     
     /*

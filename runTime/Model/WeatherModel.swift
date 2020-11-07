@@ -128,7 +128,7 @@ struct WeatherModel {
             } else {
                 tempOffset = idealTemperature - temperatureF
             }
-            print(tempOffset)
+            print("tempOffset is \(tempOffset)")
             
             if (10...14.9).contains(tempOffset) {
                 condition -= 3
@@ -149,7 +149,7 @@ struct WeatherModel {
             if humidity > idealHumidity {
                 humidityOffset = humidity - idealHumidity
             }
-            print(humidityOffset)
+            print("humidityOffset is \(humidityOffset)")
             
             
             if (5...14.9).contains(humidityOffset) {
@@ -172,7 +172,7 @@ struct WeatherModel {
             } else {
                 windSpeedOffset = idealWindSpeed - windSpeed
             }
-            print("wind \(windSpeedOffset)")
+            print("wind is \(windSpeedOffset)")
             
             if (2...3.9).contains(windSpeedOffset) {
                 condition -= 3
@@ -184,6 +184,8 @@ struct WeatherModel {
         
         func getPrecipitationFactor() -> Double {
             var condition = 10.0
+            
+            print("rainChance is \(chanceOfRain)")
             
             if (36...47.8).contains(chanceOfRain) || (36...47.8).contains(chanceOfSnow) {
                 condition -= 3

@@ -30,7 +30,7 @@ class HourlyWeatherCell: UITableViewCell {
         // Initialization code
         backgroundColorView.layer.cornerRadius = backgroundColorView.bounds.size.width/2
         backgroundColorView.clipsToBounds = true
-        backgroundColorView.layer.borderColor = UIColor.white.cgColor
+        backgroundColorView.layer.borderColor = UIColor.label.cgColor
         backgroundColorView.layer.borderWidth = 1.0
     }
 
