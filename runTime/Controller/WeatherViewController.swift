@@ -49,6 +49,11 @@ class WeatherViewController: UIViewController{
         performSegue(withIdentifier: "toSettingsViewController", sender: self)
     }
     
+    @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
+    
+    
     //var settings = SettingsModelStore.shared.model ?? SettingsModel()
 
     
