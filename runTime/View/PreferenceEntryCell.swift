@@ -8,6 +8,10 @@
 import UIKit
 
 
+protocol PreferenceEntryCellDelegate:  class {
+    func didUpdateTextField(value: Double, cell: PreferenceEntryCell)
+}
+
 
 class PreferenceEntryCell: UITableViewCell {
     
@@ -15,6 +19,7 @@ class PreferenceEntryCell: UITableViewCell {
     @IBOutlet weak var preferenceEditLabel: UILabel!
     @IBOutlet weak var preferenceTextField: UITextField!
     
+    weak var delegate: PreferenceEntryCellDelegate?
     
     
     
@@ -26,11 +31,20 @@ class PreferenceEntryCell: UITableViewCell {
         // Initialization code
         
         
+        
     }
     
-
+    @IBAction func textFieldDidChange(_ sender: UITextField) {
+        delegate?.didUpdateTextField(value: Double(preferenceTextField.text ?? "0") ?? 0, cell: self)
+        
+    }
+    
     
     
     
 }
+
+
+
+
 

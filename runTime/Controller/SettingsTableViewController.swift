@@ -11,21 +11,13 @@ import Foundation
 
 class SettingsTableViewController: UITableViewController {
     
-    var settings = SettingsModel(){
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
+    var settings = SettingsModel()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         
         tableView.register(UINib(nibName: "PreferenceSwitchCell", bundle: nil), forCellReuseIdentifier: "preferenceSwitchCell")
         tableView.register(UINib(nibName: "PreferenceEntryCell", bundle: nil), forCellReuseIdentifier: "preferenceEntryCell")
@@ -44,18 +36,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         settings = SettingsModelStore.shared.model ?? SettingsModel()
         fetchData()
-        settings.isCelsius = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool
-        settings.ignoreRain = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool
-        settings.idealTemperature = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? Double
-        settings.idealWindSpeed = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? Double
-        settings.idealHumidity = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? Double
-        SettingsModelStore.shared.updateModel(settings)
-        
-
-        
-        
-        
-        
+    
     }
 
     // MARK: - Table view data source
@@ -76,10 +57,10 @@ class SettingsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceSwitchCell", for: indexPath) as! PreferenceSwitchCell
             if indexPath.row == 0 {
                 cell.preferenceSwitchLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceSwitch.isOn = settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Bool ?? false
+                cell.preferenceSwitch.isOn = settings.isCelsius ?? false
             } else {
                 cell.preferenceSwitchLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceSwitch.isOn = settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Bool ?? false
+                cell.preferenceSwitch.isOn = settings.ignoreRain ?? false
             }
             
             return cell
@@ -87,14 +68,17 @@ class SettingsTableViewController: UITableViewController {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceEntryCell", for: indexPath) as! PreferenceEntryCell
             if indexPath.row == 2 {
+                cell.delegate = self
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceTextField.placeholder = settings.savedSettingsArray.last?.value(forKeyPath: "idealHumidity") as? String ?? "40"
+                cell.preferenceTextField.placeholder = String(settings.idealHumidity ?? 40)
             } else if indexPath.row == 3 {
+                cell.delegate = self
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceTextField.placeholder = settings.savedSettingsArray.last?.value(forKeyPath: "idealWindSpeed") as? String ?? "2"
+                cell.preferenceTextField.placeholder = String(settings.idealWindSpeed ?? 2)
             } else {
+                cell.delegate = self
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceTextField.placeholder = settings.savedSettingsArray.last?.value(forKeyPath: "idealTemperature") as? String ?? "65"
+                cell.preferenceTextField.placeholder = String(settings.idealTemperature ?? 65)
             }
             
             return cell
@@ -144,6 +128,7 @@ class SettingsTableViewController: UITableViewController {
         } else {
             if indexPath.row == 2 {
                 
+                
             } else if indexPath.row == 3 {
                 
             } else {
@@ -159,16 +144,28 @@ class SettingsTableViewController: UITableViewController {
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
         do {
-            settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
+            let objects = try managedContext.fetch(fetchRequest)
+            let settingsDataModel = objects.compactMap{$0 as? Settings}.first
+            settings.isCelsius = settingsDataModel?.isCelsius
+            settings.ignoreRain = settingsDataModel?.ignoreRain
+            settings.idealHumidity = settingsDataModel?.idealHumidity
+            settings.idealTemperature = settingsDataModel?.idealTemperature
+            settings.idealWindSpeed = settingsDataModel?.idealWindSpeed
+            SettingsModelStore.shared.updateModel(settings)
+            tableView.reloadData()
+            //settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
     func deletePreviousValues() {
-        if settings.savedSettingsArray.count >= 1 {
-            context.delete((settings.savedSettingsArray[0]))
-        }
+        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Settings")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        try? context.execute(deleteRequest)
+
     }
     func saveContext() {
         let newSetting = Settings(context: context)
@@ -239,6 +236,26 @@ class SettingsTableViewController: UITableViewController {
     }
     */
 
+}
+extension SettingsTableViewController: PreferenceEntryCellDelegate {
+    func didUpdateTextField(value: Double, cell: PreferenceEntryCell) {
+        
+        let indexPath = tableView.indexPath(for: cell)?.row
+        
+        if indexPath == 2 {
+            settings.idealHumidity = value
+            executeDataChange()
+        } else if indexPath == 3 {
+            settings.idealWindSpeed = value
+            executeDataChange()
+        } else {
+            settings.idealTemperature = value
+            executeDataChange()
+        }
+        
+    }
+    
+    
 }
 
 
