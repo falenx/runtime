@@ -26,7 +26,6 @@ class WeatherViewController: UIViewController{
         }
     }
     
-    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var currentCityLabel: UILabel!
     @IBOutlet weak var currentWeatherImageView: UIImageView!
     @IBOutlet weak var currentConditionsLabel: UILabel!
@@ -38,28 +37,19 @@ class WeatherViewController: UIViewController{
     var weatherManager = WeatherManager()
     var citySearchManager = CitySearchManager()
     let locationManager = CLLocationManager()
-    
     var weather: WeatherModel?
-    
     var locations: LocationModel?
+    var resultsTableController: ResultsTableController?
+    var searchController: UISearchController?
     
-    
-    
-
+    @IBAction func currentLocationButtonPressed(_ sender: UIBarButtonItem) {
+        locationManager.requestLocation()
+    }
     
     @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "toSettingsViewController", sender: self)
     }
-    
-    @IBAction func currentLocationButtonPressed(_ sender: UIButton) {
-        locationManager.requestLocation()
-    }
-    
-    var resultsTableController: ResultsTableController?
-    var searchController: UISearchController?
-    
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -67,33 +57,23 @@ class WeatherViewController: UIViewController{
         locationManager.requestWhenInUseAuthorization()
         //locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
-        
-        
         hourlyTableView.dataSource = self
         weatherManager.delegate = self
-        
         citySearchManager.delegate = self
         
         hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
         fetchData()
         
-        resultsTableController =
-               self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
-           // This view controller is interested in table view row selections.
+        resultsTableController = self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
         resultsTableController?.tableView.delegate = self
            
         searchController = UISearchController(searchResultsController: resultsTableController)
         searchController?.delegate = self
         searchController?.searchResultsUpdater = self
         searchController?.searchBar.delegate = self
-        
         navigationItem.searchController = searchController
-        
         definesPresentationContext = true
-            
-        
-        
         //find where the db is
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
                 
@@ -102,8 +82,9 @@ class WeatherViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         settings = SettingsModelStore.shared.model!
     }
-    
 }
+
+
 
 extension WeatherViewController: UITableViewDelegate {
     
@@ -116,13 +97,11 @@ extension WeatherViewController: UITableViewDelegate {
         resultsTableController?.locations?.names = []
         resultsTableController?.dismiss(animated: true)
         
-        
     }
-    
 }
 
 extension WeatherViewController: UISearchControllerDelegate {
-    
+ 
 }
 
 extension WeatherViewController: UISearchResultsUpdating {
@@ -131,9 +110,6 @@ extension WeatherViewController: UISearchResultsUpdating {
         citySearchManager.fetchCities(cityName: searchController.searchBar.searchTextField.text ?? "")
     }
 }
-
-
-
 
 //MARK: - SearchBarDelegate
 
@@ -151,16 +127,11 @@ extension WeatherViewController: UISearchBarDelegate {
         searchBar.showsCancelButton = false
 
     }
-    
-    
-    
-    
 }
 
 //MARK: - WeatherManagerDelegate
 
 extension WeatherViewController: WeatherManagerDelegate {
-    
     
     func fetchData() {
         
@@ -215,8 +186,6 @@ extension WeatherViewController: CitySearchManagerDelegate {
             self.locations = location
             self.resultsTableController?.locations = self.locations
         }
-        
-
     }
     
     func didFailWithCityError(error: Error) {
@@ -227,6 +196,7 @@ extension WeatherViewController: CitySearchManagerDelegate {
 //MARK: - CLLocationManagerDelegate
 
 extension WeatherViewController: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
@@ -246,17 +216,13 @@ extension WeatherViewController: CLLocationManagerDelegate {
 //MARK: - UITableViewDataSource
 
 extension WeatherViewController: UITableViewDataSource {
-    
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 23 - (weather?.currentHour ?? 0)
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "hourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
-        
-        
         
         let index = (weather?.currentHour ?? 0) + indexPath.row + 1
         let hour = weather?.hoursArray[index]
@@ -278,7 +244,6 @@ extension WeatherViewController: UITableViewDataSource {
         return cell
     }
     
-    
     func getRunningConditionsColor(_ runCondition: String) -> UIColor{
         let conditionRecieved = Int(runCondition)
         
@@ -292,8 +257,6 @@ extension WeatherViewController: UITableViewDataSource {
             return UIColor.red
         }
     }
-    
-   
     
 }
 func dateConvert(date: Int) -> Int {

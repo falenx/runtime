@@ -55,40 +55,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZyA-VY-rcP">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HuG-xs-7Ov">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="380"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HuG-xs-7Ov">
+                                        <rect key="frame" x="0.0" y="15" width="414" height="330"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Cje-gS-Xlr" userLabel="searchStackView">
-                                                <rect key="frame" x="25" y="0.0" width="364" height="40"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-Jq-z5M" userLabel="currentConditionsLabel">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="330"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="rzb-2M-lWt" userLabel="locationButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="364" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="40" id="JWN-FE-62y"/>
-                                                            <constraint firstAttribute="height" constant="40" id="ZtJ-Gw-Fl9"/>
-                                                        </constraints>
-                                                        <color key="tintColor" systemColor="labelColor"/>
-                                                        <state key="normal" image="location" catalog="system"/>
-                                                        <connections>
-                                                            <action selector="currentLocationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L3f-0S-PIy"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-Jq-z5M" userLabel="currentConditionsLabel">
-                                                <rect key="frame" x="0.0" y="50" width="414" height="330"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="njc-cT-mAm" userLabel="currentConditionsStackView">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="njc-cT-mAm" userLabel="currentConditionsStackView">
                                                         <rect key="frame" x="25" y="10" width="364" height="290"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGP-ee-Cht" userLabel="Current City">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGP-ee-Cht" userLabel="Current City">
                                                                 <rect key="frame" x="130" y="0.0" width="104" height="30"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6lu-uq-h9y">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6lu-uq-h9y">
                                                                 <rect key="frame" x="52" y="60" width="260" height="120"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.rain" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bg7-cz-z0g" userLabel="currentWeatherImage">
@@ -108,14 +91,14 @@
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZt-o5-APE">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZt-o5-APE">
                                                                 <rect key="frame" x="157" y="210" width="50" height="50"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-0k-yK0">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ae-0k-yK0">
                                                                 <rect key="frame" x="182" y="290" width="0.0" height="0.0"/>
                                                                 <color key="tintColor" systemColor="labelColor"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -134,13 +117,9 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Cje-gS-Xlr" secondAttribute="trailing" constant="25" id="9Ts-n8-uZQ"/>
-                                            <constraint firstItem="Cje-gS-Xlr" firstAttribute="leading" secondItem="HuG-xs-7Ov" secondAttribute="leading" constant="25" id="uOk-Uq-F2J"/>
-                                        </constraints>
                                     </stackView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="400" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OxG-3D-ghp" userLabel="hourlyTableView">
-                                        <rect key="frame" x="0.0" y="380" width="414" height="389"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="400" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OxG-3D-ghp" userLabel="hourlyTableView">
+                                        <rect key="frame" x="0.0" y="345" width="414" height="380"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -169,6 +148,12 @@
                         <color key="badgeColor" systemColor="labelColor"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="RunTime" id="qGt-bf-JmH">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="location" catalog="system" id="wW1-fN-YWb">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="currentLocationButtonPressed:" destination="BYZ-38-t0r" id="04A-hk-a1m"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Settings" image="gearshape" catalog="system" id="rQQ-2u-Y5f">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>

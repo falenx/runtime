@@ -36,7 +36,7 @@
 
 /* Begin PBXFileReference section */
 		ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherTableViewController.swift; sourceTree = "<group>"; };
-		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = runTime/View/SettingsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = runTime/Controller/SettingsTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelStore.swift; sourceTree = "<group>"; };
 		ED59F7D62559C2A30096D142 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 		ED62BC09254C627700450EF6 /* PreferenceSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSwitchCell.swift; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		EDB9FDA72530E8CF003C7AB6 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		EDB9FDAB2530FD27003C7AB6 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		EDD0695F254C6680008DF6A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsModel.swift; path = runTime/View/SettingsModel.swift; sourceTree = SOURCE_ROOT; };
+		EDD0695F254C6680008DF6A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsModel.swift; path = runTime/Model/SettingsModel.swift; sourceTree = SOURCE_ROOT; };
 		EDD06963254C8707008DF6A2 /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
 		EDFE70D4255099830011EB30 /* SettingsModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModelStore.swift; sourceTree = "<group>"; };
 		EDFE70D9255336940011EB30 /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
