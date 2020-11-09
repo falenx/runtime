@@ -21,5 +21,4 @@ struct SettingsModel {
     var idealTemperature: Double?
     
     
-    
 }

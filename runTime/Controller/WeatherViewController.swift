@@ -33,13 +33,15 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var currentConditionsStatementLabel: UILabel!
     @IBOutlet weak var currentRunRatingLabel: UILabel!
     @IBOutlet weak var hourlyTableView: UITableView!
+   
     
     var weatherManager = WeatherManager()
     var citySearchManager = CitySearchManager()
     let locationManager = CLLocationManager()
     
-    
     var weather: WeatherModel?
+    
+    var locations: LocationModel?
     
     
     
@@ -53,8 +55,9 @@ class WeatherViewController: UIViewController{
         locationManager.requestLocation()
     }
     
+    var resultsTableController: ResultsTableController?
+    var searchController: UISearchController?
     
-    //var settings = SettingsModelStore.shared.model ?? SettingsModel()
 
     
     override func viewDidLoad() {
@@ -65,15 +68,30 @@ class WeatherViewController: UIViewController{
         //locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
         
-        hourlyTableView.dataSource = self
         
+        hourlyTableView.dataSource = self
         weatherManager.delegate = self
-        searchTextField.delegate = self
+        
         citySearchManager.delegate = self
         
         hourlyTableView.register(UINib(nibName: "HourlyWeatherCell", bundle: nil), forCellReuseIdentifier: "hourlyWeatherCell")
         
         fetchData()
+        
+        resultsTableController =
+               self.storyboard?.instantiateViewController(withIdentifier: "ResultsTableController") as? ResultsTableController
+           // This view controller is interested in table view row selections.
+        resultsTableController?.tableView.delegate = self
+           
+        searchController = UISearchController(searchResultsController: resultsTableController)
+        searchController?.delegate = self
+        searchController?.searchResultsUpdater = self
+        searchController?.searchBar.delegate = self
+        
+        navigationItem.searchController = searchController
+        
+        definesPresentationContext = true
+            
         
         
         //find where the db is
@@ -87,44 +105,56 @@ class WeatherViewController: UIViewController{
     
 }
 
-func dateConvert(date: Int) -> Int {
-    if date == 12 {
-        return 12
+extension WeatherViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let searchString = locations?.names[indexPath.row].split(separator: ",")[0] ?? ""
+        weatherManager.fetchWeather(cityName: String(searchString))
+        searchController?.searchBar.searchTextField.text = ""
+        searchController?.searchBar.resignFirstResponder()
+        searchController?.searchBar.showsCancelButton = false
+        resultsTableController?.locations?.names = []
+        resultsTableController?.dismiss(animated: true)
+        
+        
     }
-    return date - 12
+    
 }
 
-//MARK: - UITextFieldDelegate
-
-extension WeatherViewController: UITextFieldDelegate {
+extension WeatherViewController: UISearchControllerDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
+}
+
+extension WeatherViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        searchController.showsSearchResultsController = true
+        citySearchManager.fetchCities(cityName: searchController.searchBar.searchTextField.text ?? "")
+    }
+}
+
+
+
+
+//MARK: - SearchBarDelegate
+
+extension WeatherViewController: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if let city = searchTextField.text?.trimmingCharacters(in: .whitespaces) {
-            weatherManager.fetchWeather(cityName: city)
-        }
-        
-        searchTextField.text = ""
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text != "" {
-            return true
-        } else {
-            textField.placeholder = "Enter a city to search for"
-            return true
-        }
-    }
-    
-    @IBAction func searchFieldChanged(_ sender: UITextField) {
-        citySearchManager.fetchCities(cityName: searchTextField.text ?? "")
-    }
-    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("cancel button clicked")
+        searchBar.searchTextField.text = ""
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
 
+    }
+    
+    
+    
+    
 }
 
 //MARK: - WeatherManagerDelegate
@@ -181,11 +211,12 @@ extension WeatherViewController: WeatherManagerDelegate {
 extension WeatherViewController: CitySearchManagerDelegate {
     
     func didUpdateSearch(_ citySearchManager: CitySearchManager, location: LocationModel) {
-        for i in location.names {
-            print(i)
+        DispatchQueue.main.async {
+            self.locations = location
+            self.resultsTableController?.locations = self.locations
         }
         
-        
+
     }
     
     func didFailWithCityError(error: Error) {
@@ -262,6 +293,15 @@ extension WeatherViewController: UITableViewDataSource {
         }
     }
     
+   
+    
 }
+func dateConvert(date: Int) -> Int {
+    if date == 12 {
+        return 12
+    }
+    return date - 12
+}
+
 
 

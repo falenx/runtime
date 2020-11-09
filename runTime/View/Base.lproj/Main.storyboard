@@ -62,7 +62,7 @@
                                                 <rect key="frame" x="25" y="0.0" width="364" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="rzb-2M-lWt" userLabel="locationButton">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="364" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="JWN-FE-62y"/>
                                                             <constraint firstAttribute="height" constant="40" id="ZtJ-Gw-Fl9"/>
@@ -73,15 +73,6 @@
                                                             <action selector="currentLocationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L3f-0S-PIy"/>
                                                         </connections>
                                                     </button>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wJK-8G-xI2">
-                                                        <rect key="frame" x="50" y="0.0" width="314" height="40"/>
-                                                        <color key="tintColor" systemColor="labelColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                        <connections>
-                                                            <action selector="searchFieldChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="e1O-5P-BQh"/>
-                                                        </connections>
-                                                    </textField>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-Jq-z5M" userLabel="currentConditionsLabel">
@@ -192,7 +183,6 @@
                         <outlet property="currentRunRatingLabel" destination="goQ-oH-VEm" id="J7h-Dt-4c8"/>
                         <outlet property="currentWeatherImageView" destination="bg7-cz-z0g" id="wem-KP-I4H"/>
                         <outlet property="hourlyTableView" destination="OxG-3D-ghp" id="GWx-TU-3pJ"/>
-                        <outlet property="searchTextField" destination="wJK-8G-xI2" id="xCA-Y8-ebZ"/>
                         <segue destination="fSS-Ma-rYr" kind="show" identifier="toSettingsViewController" id="UVP-du-kIB"/>
                     </connections>
                 </viewController>
@@ -237,6 +227,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfW-OV-3KX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1378" y="1667"/>
+        </scene>
+        <!--Results Table Controller-->
+        <scene sceneID="pRB-PY-sY2">
+            <objects>
+                <tableViewController storyboardIdentifier="ResultsTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pQk-td-ZpI" customClass="ResultsTableController" customModule="runTime" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kQj-rE-Ile">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="2AG-ef-9bm">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2AG-ef-9bm" id="2gM-yz-Fsh">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="tintColor" systemColor="labelColor"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pQk-td-ZpI" id="l4L-10-VOk"/>
+                            <outlet property="delegate" destination="pQk-td-ZpI" id="j4Z-fa-wDc"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Euq-GE-XLk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-328" y="1667"/>
         </scene>
     </scenes>
     <resources>

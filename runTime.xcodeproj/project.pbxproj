@@ -10,6 +10,7 @@
 		ED01E582253E235B0078AEBC /* TomorrowWeatherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */; };
 		ED28432E254763F300F76CF1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */; };
 		ED48C5AB253E2ECE00AA7589 /* WeatherModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */; };
+		ED59F7D72559C2A30096D142 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59F7D62559C2A30096D142 /* ResultsTableController.swift */; };
 		ED62BC0B254C627800450EF6 /* PreferenceSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED62BC09254C627700450EF6 /* PreferenceSwitchCell.swift */; };
 		ED62BC0C254C627800450EF6 /* PreferenceSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED62BC0A254C627700450EF6 /* PreferenceSwitchCell.xib */; };
 		ED62BC10254C640A00450EF6 /* PreferenceEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED62BC0E254C640A00450EF6 /* PreferenceEntryCell.swift */; };
@@ -37,6 +38,7 @@
 		ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherTableViewController.swift; sourceTree = "<group>"; };
 		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = runTime/View/SettingsTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelStore.swift; sourceTree = "<group>"; };
+		ED59F7D62559C2A30096D142 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 		ED62BC09254C627700450EF6 /* PreferenceSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSwitchCell.swift; sourceTree = "<group>"; };
 		ED62BC0A254C627700450EF6 /* PreferenceSwitchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferenceSwitchCell.xib; sourceTree = "<group>"; };
 		ED62BC0E254C640A00450EF6 /* PreferenceEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceEntryCell.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */,
 				ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */,
 				ED77FA2B252A88BF0012DF0B /* WeatherViewController.swift */,
+				ED59F7D62559C2A30096D142 /* ResultsTableController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -118,6 +121,8 @@
 		EDFE1ECC253899DD00F5A7A5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ED99E6CD2538B843006A3509 /* HourlyWeatherCell.swift */,
+				ED99E6CE2538B844006A3509 /* HourlyWeatherCell.xib */,
 				ED62BC09254C627700450EF6 /* PreferenceSwitchCell.swift */,
 				ED62BC0A254C627700450EF6 /* PreferenceSwitchCell.xib */,
 				ED62BC0E254C640A00450EF6 /* PreferenceEntryCell.swift */,
@@ -139,8 +144,6 @@
 				EDFE70DC255337880011EB30 /* CitySearchManager.swift */,
 				EDFE70D9255336940011EB30 /* LocationData.swift */,
 				EDFE70DF255338370011EB30 /* LocationModel.swift */,
-				ED99E6CD2538B843006A3509 /* HourlyWeatherCell.swift */,
-				ED99E6CE2538B844006A3509 /* HourlyWeatherCell.xib */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED59F7D72559C2A30096D142 /* ResultsTableController.swift in Sources */,
 				EDFE70DA255336940011EB30 /* LocationData.swift in Sources */,
 				ED99E6CF2538B844006A3509 /* HourlyWeatherCell.swift in Sources */,
 				ED77FA2C252A88BF0012DF0B /* WeatherViewController.swift in Sources */,
