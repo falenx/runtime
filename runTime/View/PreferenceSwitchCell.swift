@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol PreferenceSwitchCellDelegate:  class {
+    func didUpdateSwitch(value: Bool, cell: PreferenceSwitchCell)
+}
+
 class PreferenceSwitchCell: UITableViewCell {
     
    
@@ -14,6 +18,7 @@ class PreferenceSwitchCell: UITableViewCell {
     @IBOutlet weak var preferenceSwitch: UISwitch!
     
     
+    weak var delegate: PreferenceSwitchCellDelegate?
     
 
     override func awakeFromNib() {
@@ -21,6 +26,11 @@ class PreferenceSwitchCell: UITableViewCell {
         // Initialization code
     }
     
+    @IBAction func PreferenceSwitchPressed(_ sender: UISwitch) {
+        delegate?.didUpdateSwitch(value: preferenceSwitch.isOn, cell: self)
+        
+        
+    }
     
 
 }

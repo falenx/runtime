@@ -56,9 +56,11 @@ class SettingsTableViewController: UITableViewController {
         if indexPath.row < 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "preferenceSwitchCell", for: indexPath) as! PreferenceSwitchCell
             if indexPath.row == 0 {
+                cell.delegate = self
                 cell.preferenceSwitchLabel.text = settings.settingsArray[indexPath.row]
                 cell.preferenceSwitch.isOn = settings.isCelsius ?? false
             } else {
+                cell.delegate = self
                 cell.preferenceSwitchLabel.text = settings.settingsArray[indexPath.row]
                 cell.preferenceSwitch.isOn = settings.ignoreRain ?? false
             }
@@ -86,7 +88,7 @@ class SettingsTableViewController: UITableViewController {
         }
 
     }
-    
+    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row < 2 {
@@ -136,7 +138,7 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
-    
+    */
     func fetchData() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
@@ -153,7 +155,6 @@ class SettingsTableViewController: UITableViewController {
             settings.idealWindSpeed = settingsDataModel?.idealWindSpeed
             SettingsModelStore.shared.updateModel(settings)
             tableView.reloadData()
-            //settings.savedSettingsArray = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -258,6 +259,22 @@ extension SettingsTableViewController: PreferenceEntryCellDelegate {
     
 }
 
+
+extension SettingsTableViewController: PreferenceSwitchCellDelegate {
+    func didUpdateSwitch(value: Bool, cell: PreferenceSwitchCell) {
+        let indexPath = tableView.indexPath(for: cell)?.row
+        
+        if indexPath == 0 {
+            settings.isCelsius = value
+            executeDataChange()
+        } else {
+            settings.ignoreRain = value
+            executeDataChange()
+        }
+    }
+    
+    
+}
 
 
 
