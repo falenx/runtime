@@ -72,15 +72,15 @@ class SettingsTableViewController: UITableViewController {
             if indexPath.row == 2 {
                 cell.delegate = self
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceTextField.placeholder = String(settings.idealHumidity ?? 40)
+                cell.preferenceTextField.placeholder = String(format: "%.0f", settings.idealHumidity ?? 40) + "%"
             } else if indexPath.row == 3 {
                 cell.delegate = self
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceTextField.placeholder = String(settings.idealWindSpeed ?? 2)
+                cell.preferenceTextField.placeholder = String(format: "%.0f", settings.idealWindSpeed ?? 2) + " mph"
             } else {
                 cell.delegate = self
                 cell.preferenceEditLabel.text = settings.settingsArray[indexPath.row]
-                cell.preferenceTextField.placeholder = String(settings.idealTemperature ?? 65)
+                cell.preferenceTextField.placeholder = String(format: "%.0f", settings.idealTemperature ?? 65) + "°"
             }
             
             return cell
@@ -88,57 +88,7 @@ class SettingsTableViewController: UITableViewController {
         }
 
     }
-    /*
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if indexPath.row < 2 {
-            if indexPath.row == 0 {
-                if (settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") != nil) {
-                    if settings.savedSettingsArray.last?.value(forKeyPath: "isCelsius") as? Int == 1 {
-                        settings.isCelsius = false
-                        executeDataChange()
-                        tableView.deselectRow(at: indexPath, animated: true)
-                    } else {
-                        settings.isCelsius = true
-                        executeDataChange()
-                        tableView.deselectRow(at: indexPath, animated: true)
-                    }
-                } else {
-                    settings.isCelsius = true
-                    executeDataChange()
-                    tableView.deselectRow(at: indexPath, animated: true)
-                }
-            } else {
-                if (settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") != nil) {
-                    if settings.savedSettingsArray.last?.value(forKeyPath: "ignoreRain") as? Int ==  1 {
-                        settings.ignoreRain = false
-                        executeDataChange()
-                        tableView.deselectRow(at: indexPath, animated: true)
-                    } else {
-                        settings.ignoreRain = true
-                        executeDataChange()
-                        tableView.deselectRow(at: indexPath, animated: true)
-                    }
-                } else {
-                    settings.ignoreRain = true
-                    executeDataChange()
-                    tableView.deselectRow(at: indexPath, animated: true)
-                }
-                
-            }
-            fetchData()
-        } else {
-            if indexPath.row == 2 {
-                
-                
-            } else if indexPath.row == 3 {
-                
-            } else {
-                
-            }
-        }
-    }
-    */
+    
     func fetchData() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return

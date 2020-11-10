@@ -55,7 +55,7 @@ class WeatherViewController: UIViewController{
         // Do any additional setup after loading the view.
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        //locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
         hourlyTableView.dataSource = self
         weatherManager.delegate = self
