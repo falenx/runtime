@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherTableViewController.swift; sourceTree = "<group>"; };
-		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = runTime/Controller/SettingsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = "Run Weather/Controller/SettingsTableViewController.swift"; sourceTree = SOURCE_ROOT; };
 		ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelStore.swift; sourceTree = "<group>"; };
 		ED59F7D62559C2A30096D142 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 		ED5C00C9255D9CA200528AA7 /* runPic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = runPic.jpg; path = ../../../runPic.jpg; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		EDB9FDA72530E8CF003C7AB6 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		EDB9FDAB2530FD27003C7AB6 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		EDB9FDAF25310365003C7AB6 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		EDD0695F254C6680008DF6A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsModel.swift; path = runTime/Model/SettingsModel.swift; sourceTree = SOURCE_ROOT; };
+		EDD0695F254C6680008DF6A2 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsModel.swift; path = "Run Weather/Model/SettingsModel.swift"; sourceTree = SOURCE_ROOT; };
 		EDD06963254C8707008DF6A2 /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
 		EDFE70D4255099830011EB30 /* SettingsModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModelStore.swift; sourceTree = "<group>"; };
 		EDFE70D9255336940011EB30 /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
@@ -107,7 +107,8 @@
 				ED77FA32252A88C20012DF0B /* LaunchScreen.storyboard */,
 				ED77FA35252A88C20012DF0B /* Info.plist */,
 			);
-			path = runTime;
+			name = runTime;
+			path = "Run Weather";
 			sourceTree = "<group>";
 		};
 		EDFE1ECB253899C100F5A7A5 /* Controller */ = {
@@ -391,13 +392,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 67PTY95QDR;
-				INFOPLIST_FILE = runTime/Info.plist;
+				DEVELOPMENT_TEAM = 3L5URM5826;
+				INFOPLIST_FILE = "$(SRCROOT)/Run Weather/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Taylor.runTime";
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Taylor.Run-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -410,13 +411,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 67PTY95QDR;
-				INFOPLIST_FILE = runTime/Info.plist;
+				DEVELOPMENT_TEAM = 3L5URM5826;
+				INFOPLIST_FILE = "$(SRCROOT)/Run Weather/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Taylor.runTime";
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Taylor.Run-Weather";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

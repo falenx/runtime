@@ -44,6 +44,7 @@ class WeatherViewController: UIViewController{
     var searchController: UISearchController?
     
     @IBAction func currentLocationButtonPressed(_ sender: UIBarButtonItem) {
+        self.currentCityLabel.text = "Loading running scores"
         locationManager.requestLocation()
     }
     
@@ -108,6 +109,14 @@ class WeatherViewController: UIViewController{
         self.hourlyTableView.reloadData()
         self.view.layoutIfNeeded()
         
+    }
+    
+    func resetModel() {
+        self.currentCityLabel.text = "Failed, no network connection"
+        self.currentConditionsStatementLabel.text = ""
+        self.currentRunRatingLabel.text = ""
+        self.currentWeatherImageView.image = UIImage(systemName: "sun.min")
+    
     }
 }
 
@@ -229,6 +238,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        resetModel()
         print(error)
     }
 }
