@@ -16,15 +16,17 @@ class WeatherViewController: UIViewController{
     
     var settings = SettingsModel(){
         didSet {
-            if self.settings.isCelsius ?? false {
-                self.currentConditionsLabel.text = ((weather?.temperatureStringC ?? "") + "°")
-            } else {
-                self.currentConditionsLabel.text = ((weather?.temperatureStringF ?? "") + "°")
-            }
-            self.hourlyTableView.reloadData()
+            updateModel()
             
         }
     }
+    
+    var weather: WeatherModel? {
+        didSet {
+            updateModel()
+        }
+    }
+    
     
     @IBOutlet weak var currentCityLabel: UILabel!
     @IBOutlet weak var currentWeatherImageView: UIImageView!
@@ -37,7 +39,6 @@ class WeatherViewController: UIViewController{
     var weatherManager = WeatherManager()
     var citySearchManager = CitySearchManager()
     let locationManager = CLLocationManager()
-    var weather: WeatherModel?
     var locations: LocationModel?
     var resultsTableController: ResultsTableController?
     var searchController: UISearchController?
@@ -73,7 +74,10 @@ class WeatherViewController: UIViewController{
         searchController?.searchResultsUpdater = self
         searchController?.searchBar.delegate = self
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        updateModel()
         //find where the db is
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
                 
@@ -82,12 +86,36 @@ class WeatherViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         settings = SettingsModelStore.shared.model!
     }
+    
+    func updateModel() {
+        
+        guard let weather = self.weather else {
+            return
+        }
+        
+        if self.settings.isCelsius ?? false {
+            self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringC + "°")"
+            
+        } else {
+            self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringF + "°")"
+        }
+        self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
+        
+        self.currentConditionsStatementLabel.text = weather.conditionStatement
+        self.currentRunRatingLabel.text = String(weather.getRunningConditions())
+        self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(String(weather.getRunningConditions()))
+        
+        self.hourlyTableView.reloadData()
+        self.view.layoutIfNeeded()
+        
+    }
 }
 
 
 
+//MARK: - UITableViewDelegate
+
 extension WeatherViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let searchString = locations?.names[indexPath.row].split(separator: ",")[0] ?? ""
         weatherManager.fetchWeather(cityName: String(searchString))
@@ -127,6 +155,8 @@ extension WeatherViewController: UISearchBarDelegate {
         searchBar.showsCancelButton = false
 
     }
+    
+    
 }
 
 //MARK: - WeatherManagerDelegate
@@ -155,19 +185,9 @@ extension WeatherViewController: WeatherManagerDelegate {
     
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            if self.settings.isCelsius ?? false {
-                self.currentConditionsLabel.text = weather.temperatureStringC + "°"
-            } else {
-                self.currentConditionsLabel.text = weather.temperatureStringF + "°"
-            }
-            self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
-            self.currentCityLabel.text = weather.cityName
-            self.currentConditionsStatementLabel.text = weather.conditionStatement
-            self.currentRunRatingLabel.text = String(weather.getRunningConditions())
-            self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(String(weather.getRunningConditions()))
+            
             self.weather = weather
-            self.hourlyTableView.reloadData()
-            self.view.layoutIfNeeded()
+            
             WeatherModelStore.shared.updateModel(weather)
         }
     }
