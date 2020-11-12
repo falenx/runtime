@@ -17,7 +17,7 @@
                BlueprintIdentifier = "ED77FA23252A88BF0012DF0B"
                BuildableName = "runTime.app"
                BlueprintName = "runTime"
-               ReferencedContainer = "container:runTime.xcodeproj">
+               ReferencedContainer = "container:Run Weather.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "ED77FA23252A88BF0012DF0B"
             BuildableName = "runTime.app"
             BlueprintName = "runTime"
-            ReferencedContainer = "container:runTime.xcodeproj">
+            ReferencedContainer = "container:Run Weather.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <LocationScenarioReference
@@ -68,7 +68,7 @@
             BlueprintIdentifier = "ED77FA23252A88BF0012DF0B"
             BuildableName = "runTime.app"
             BlueprintName = "runTime"
-            ReferencedContainer = "container:runTime.xcodeproj">
+            ReferencedContainer = "container:Run Weather.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
