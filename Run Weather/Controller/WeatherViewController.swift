@@ -113,7 +113,6 @@ class WeatherViewController: UIViewController{
         }
         
         self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
-        
         self.currentConditionsStatementLabel.text = weather.conditionStatement
         self.currentRunRatingLabel.text = String(weather.getRunningConditions())
         self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(String(weather.getRunningConditions()))
@@ -140,6 +139,10 @@ class WeatherViewController: UIViewController{
 extension WeatherViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let searchString = locations?.names[indexPath.row].split(separator: ",")[0] ?? ""
+        if (searchString.split(separator: " ").count) > 1 {
+            let newString = searchString.replacingOccurrences(of: " ", with: "%20")
+            weatherManager.fetchWeather(cityName: String(newString))
+        }
         weatherManager.fetchWeather(cityName: String(searchString))
         searchController?.searchBar.searchTextField.text = ""
         searchController?.searchBar.resignFirstResponder()
