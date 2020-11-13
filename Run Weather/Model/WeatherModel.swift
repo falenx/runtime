@@ -116,8 +116,6 @@ struct WeatherModel {
         let idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
         let idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40
         let idealWindSpeed = SettingsModelStore.shared.model?.idealWindSpeed ?? 2
-        print("current hour is ")
-        print(currentHour)
         
         func getTempFactor(_ factor: Double = 0.4) -> Double {
             var condition = 10.0
@@ -128,7 +126,7 @@ struct WeatherModel {
             } else {
                 tempOffset = idealTemperature - temperatureF
             }
-            print("tempOffset is \(tempOffset)")
+            
             
             if (10...14.9).contains(tempOffset) {
                 condition -= 3
@@ -149,8 +147,6 @@ struct WeatherModel {
             if humidity > idealHumidity {
                 humidityOffset = humidity - idealHumidity
             }
-            print("humidityOffset is \(humidityOffset)")
-            
             
             if (5...14.9).contains(humidityOffset) {
                 condition -= 3
@@ -172,7 +168,6 @@ struct WeatherModel {
             } else {
                 windSpeedOffset = idealWindSpeed - windSpeed
             }
-            print("wind is \(windSpeedOffset)")
             
             if (2...3.9).contains(windSpeedOffset) {
                 condition -= 3
@@ -184,8 +179,6 @@ struct WeatherModel {
         
         func getPrecipitationFactor() -> Double {
             var condition = 10.0
-            
-            print("rainChance is \(chanceOfRain)")
             
             if (36...47.8).contains(chanceOfRain) || (36...47.8).contains(chanceOfSnow) {
                 condition -= 3
@@ -199,11 +192,9 @@ struct WeatherModel {
         
         if SettingsModelStore.shared.model?.ignoreRain ?? false{
             let runningConditions = Int(round(getTempFactor(0.43) + getHumidityFactor(0.33) + getWindFactor(0.23)))
-            print("running conditions without rain \(runningConditions)")
             return runningConditions
         } else {
             let runningConditions =  Int(round(getTempFactor() + getPrecipitationFactor() + getWindFactor() + getHumidityFactor()))
-            print("running conditions with rain \(runningConditions)")
             return runningConditions
         }
 

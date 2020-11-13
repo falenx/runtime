@@ -11,11 +11,14 @@
 		ED28432E254763F300F76CF1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */; };
 		ED48C5AB253E2ECE00AA7589 /* WeatherModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */; };
 		ED59F7D72559C2A30096D142 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED59F7D62559C2A30096D142 /* ResultsTableController.swift */; };
-		ED5C00CA255D9CA200528AA7 /* runPic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED5C00C9255D9CA200528AA7 /* runPic.jpg */; };
 		ED62BC0B254C627800450EF6 /* PreferenceSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED62BC09254C627700450EF6 /* PreferenceSwitchCell.swift */; };
 		ED62BC0C254C627800450EF6 /* PreferenceSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED62BC0A254C627700450EF6 /* PreferenceSwitchCell.xib */; };
 		ED62BC10254C640A00450EF6 /* PreferenceEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED62BC0E254C640A00450EF6 /* PreferenceEntryCell.swift */; };
 		ED62BC11254C640A00450EF6 /* PreferenceEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED62BC0F254C640A00450EF6 /* PreferenceEntryCell.xib */; };
+		ED63E225255DDD6A00EAC482 /* RainRun.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ED63E222255DDD6A00EAC482 /* RainRun.jpeg */; };
+		ED63E226255DDD6A00EAC482 /* runPic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED63E223255DDD6A00EAC482 /* runPic.jpg */; };
+		ED63E230255DE25300EAC482 /* DayRun.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED63E22F255DE25300EAC482 /* DayRun.jpg */; };
+		ED63E236255DE57300EAC482 /* NightRun.png in Resources */ = {isa = PBXBuildFile; fileRef = ED63E235255DE57300EAC482 /* NightRun.png */; };
 		ED77FA28252A88BF0012DF0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77FA27252A88BF0012DF0B /* AppDelegate.swift */; };
 		ED77FA2A252A88BF0012DF0B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77FA29252A88BF0012DF0B /* SceneDelegate.swift */; };
 		ED77FA2C252A88BF0012DF0B /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED77FA2B252A88BF0012DF0B /* WeatherViewController.swift */; };
@@ -40,11 +43,14 @@
 		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = "Run Weather/Controller/SettingsTableViewController.swift"; sourceTree = SOURCE_ROOT; };
 		ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelStore.swift; sourceTree = "<group>"; };
 		ED59F7D62559C2A30096D142 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
-		ED5C00C9255D9CA200528AA7 /* runPic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = runPic.jpg; path = ../../../runPic.jpg; sourceTree = "<group>"; };
 		ED62BC09254C627700450EF6 /* PreferenceSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSwitchCell.swift; sourceTree = "<group>"; };
 		ED62BC0A254C627700450EF6 /* PreferenceSwitchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferenceSwitchCell.xib; sourceTree = "<group>"; };
 		ED62BC0E254C640A00450EF6 /* PreferenceEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceEntryCell.swift; sourceTree = "<group>"; };
 		ED62BC0F254C640A00450EF6 /* PreferenceEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferenceEntryCell.xib; sourceTree = "<group>"; };
+		ED63E222255DDD6A00EAC482 /* RainRun.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = RainRun.jpeg; path = Assets.xcassets/RainRun.jpeg; sourceTree = "<group>"; };
+		ED63E223255DDD6A00EAC482 /* runPic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = runPic.jpg; path = Assets.xcassets/runPic.jpg; sourceTree = "<group>"; };
+		ED63E22F255DE25300EAC482 /* DayRun.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = DayRun.jpg; path = ../../../../Downloads/DayRun.jpg; sourceTree = "<group>"; };
+		ED63E235255DE57300EAC482 /* NightRun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NightRun.png; path = ../../../../Downloads/NightRun.png; sourceTree = "<group>"; };
 		ED77FA24252A88BF0012DF0B /* runTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = runTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED77FA27252A88BF0012DF0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED77FA29252A88BF0012DF0B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +109,10 @@
 				EDD06962254C8707008DF6A2 /* runTime.xcdatamodeld */,
 				ED77FA29252A88BF0012DF0B /* SceneDelegate.swift */,
 				ED77FA30252A88C20012DF0B /* Assets.xcassets */,
-				ED5C00C9255D9CA200528AA7 /* runPic.jpg */,
+				ED63E235255DE57300EAC482 /* NightRun.png */,
+				ED63E22F255DE25300EAC482 /* DayRun.jpg */,
+				ED63E222255DDD6A00EAC482 /* RainRun.jpeg */,
+				ED63E223255DDD6A00EAC482 /* runPic.jpg */,
 				ED77FA32252A88C20012DF0B /* LaunchScreen.storyboard */,
 				ED77FA35252A88C20012DF0B /* Info.plist */,
 			);
@@ -209,13 +218,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED5C00CA255D9CA200528AA7 /* runPic.jpg in Resources */,
 				ED77FA34252A88C20012DF0B /* LaunchScreen.storyboard in Resources */,
 				ED99E6D02538B844006A3509 /* HourlyWeatherCell.xib in Resources */,
 				ED77FA31252A88C20012DF0B /* Assets.xcassets in Resources */,
 				ED62BC0C254C627800450EF6 /* PreferenceSwitchCell.xib in Resources */,
+				ED63E226255DDD6A00EAC482 /* runPic.jpg in Resources */,
 				ED77FA2F252A88BF0012DF0B /* Main.storyboard in Resources */,
+				ED63E230255DE25300EAC482 /* DayRun.jpg in Resources */,
 				ED62BC11254C640A00450EF6 /* PreferenceEntryCell.xib in Resources */,
+				ED63E236255DE57300EAC482 /* NightRun.png in Resources */,
+				ED63E225255DDD6A00EAC482 /* RainRun.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

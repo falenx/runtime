@@ -30,11 +30,11 @@ class WeatherViewController: UIViewController{
     
     @IBOutlet weak var currentCityLabel: UILabel!
     @IBOutlet weak var currentWeatherImageView: UIImageView!
-    @IBOutlet weak var currentConditionsLabel: UILabel!
     @IBOutlet weak var currentConditionsStatementLabel: UILabel!
     @IBOutlet weak var currentRunRatingLabel: UILabel!
     @IBOutlet weak var hourlyTableView: UITableView!
-   
+    @IBOutlet weak var currentConditionsBackgroundImage: UIImageView!
+    
     
     var weatherManager = WeatherManager()
     var citySearchManager = CitySearchManager()
@@ -100,6 +100,18 @@ class WeatherViewController: UIViewController{
         } else {
             self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringF + "°")"
         }
+        if weather.chanceOfRain > 70 {
+            self.currentConditionsBackgroundImage.image = UIImage(named: "RainRun.jpeg")
+        } else if weather.isDay == 0 {
+            self.currentConditionsBackgroundImage.image = UIImage(named: "NightRun.png")
+        } else {
+            if weather.currentHour < 10 {
+                self.currentConditionsBackgroundImage.image = UIImage(named: "runPic.jpg")
+            } else {
+                self.currentConditionsBackgroundImage.image = UIImage(named: "DayRun.jpg")
+            }
+        }
+        
         self.currentWeatherImageView.image = UIImage(systemName: weather.conditionName)
         
         self.currentConditionsStatementLabel.text = weather.conditionStatement
@@ -116,6 +128,7 @@ class WeatherViewController: UIViewController{
         self.currentConditionsStatementLabel.text = ""
         self.currentRunRatingLabel.text = ""
         self.currentWeatherImageView.image = UIImage(systemName: "sun.min")
+        self.currentConditionsBackgroundImage.image = UIImage(named: "")
     
     }
 }

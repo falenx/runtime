@@ -58,7 +58,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-Jq-z5M" userLabel="currentConditionsLabel">
                                         <rect key="frame" x="0.0" y="8" width="414" height="326.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="runPic.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="54a-PO-RUy">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="54a-PO-RUy">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="326.5"/>
                                             </imageView>
                                             <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K08-zY-Tak">
@@ -173,6 +173,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentCityLabel" destination="mGP-ee-Cht" id="Ex5-h4-81p"/>
+                        <outlet property="currentConditionsBackgroundImage" destination="54a-PO-RUy" id="Fmf-Jm-sk9"/>
                         <outlet property="currentConditionsStatementLabel" destination="5Ae-0k-yK0" id="P3M-VT-qj0"/>
                         <outlet property="currentRunRatingLabel" destination="goQ-oH-VEm" id="J7h-Dt-4c8"/>
                         <outlet property="currentWeatherImageView" destination="bg7-cz-z0g" id="wem-KP-I4H"/>
@@ -256,7 +257,6 @@
         <image name="cloud.rain" catalog="system" width="128" height="125"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="location" catalog="system" width="128" height="121"/>
-        <image name="runPic.jpg" width="1920" height="1277"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
