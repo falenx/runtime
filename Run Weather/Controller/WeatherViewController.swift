@@ -42,6 +42,7 @@ class WeatherViewController: UIViewController{
     var locations: LocationModel?
     var resultsTableController: ResultsTableController?
     var searchController: UISearchController?
+    var foundCity: String?
     
     @IBAction func currentLocationButtonPressed(_ sender: UIBarButtonItem) {
         self.currentCityLabel.text = "Loading running scores"
@@ -89,16 +90,26 @@ class WeatherViewController: UIViewController{
     }
     
     func updateModel() {
-        
+                
         guard let weather = self.weather else {
             return
         }
         
+        
         if self.settings.isCelsius ?? false {
-            self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringC + "°")"
-            
+            if foundCity != nil {
+                self.currentCityLabel.text = "\(foundCity!)   \(weather.temperatureStringC + "°")"
+            } else {
+                self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringC + "°")"
+            }
         } else {
-            self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringF + "°")"
+            if foundCity != nil {
+                self.currentCityLabel.text = "\(foundCity!)   \(weather.temperatureStringF + "°")"
+            } else {
+                self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringF + "°")"
+
+            }
+            
         }
         if weather.chanceOfRain > 70 {
             self.currentConditionsBackgroundImage.image = UIImage(named: "RainRun.jpeg")
@@ -119,6 +130,7 @@ class WeatherViewController: UIViewController{
         
         self.hourlyTableView.reloadData()
         self.view.layoutIfNeeded()
+        
         
     }
     
@@ -149,6 +161,7 @@ extension WeatherViewController: UITableViewDelegate {
         searchController?.searchBar.showsCancelButton = false
         resultsTableController?.locations?.names = []
         resultsTableController?.dismiss(animated: true)
+        self.foundCity = nil
         
     }
 }
@@ -180,8 +193,6 @@ extension WeatherViewController: UISearchBarDelegate {
         searchBar.showsCancelButton = false
 
     }
-    
-    
 }
 
 //MARK: - WeatherManagerDelegate
@@ -210,7 +221,6 @@ extension WeatherViewController: WeatherManagerDelegate {
     
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         DispatchQueue.main.async {
-            
             self.weather = weather
             
             WeatherModelStore.shared.updateModel(weather)
@@ -243,13 +253,24 @@ extension WeatherViewController: CitySearchManagerDelegate {
 extension WeatherViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        var firstLocation: CLPlacemark?
         if let location = locations.last {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-
-            weatherManager.fetchWeather(latitude: lat, longitude: lon)
             
+            let geocoder = CLGeocoder()
+            
+            geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
+                if error == nil {
+                    firstLocation = placemarks?[0]
+                    self.foundCity = firstLocation?.locality ?? ""
+                    self.weatherManager.fetchWeather(latitude: lat, longitude: lon)
+                }
+                else {
+                    print("error occured geocoding")
+                }
+            })
         }
     }
     
