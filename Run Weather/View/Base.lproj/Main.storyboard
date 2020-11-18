@@ -31,7 +31,9 @@
         <scene sceneID="ihp-0T-bhW">
             <objects>
                 <navigationController id="wPM-ub-c10" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Today" id="wnj-rm-QnF"/>
+                    <tabBarItem key="tabBarItem" title="Today" image="house" catalog="system" selectedImage="house.fill" id="wnj-rm-QnF">
+                        <color key="badgeColor" systemColor="labelColor"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0ay-yG-m7R">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -256,7 +258,9 @@
         <scene sceneID="qJ8-cN-Li0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i1g-ck-vEG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tomorrow" id="HW0-5k-gS8"/>
+                    <tabBarItem key="tabBarItem" title="Tomorrow" image="clock" catalog="system" selectedImage="clock.fill" id="HW0-5k-gS8">
+                        <color key="badgeColor" systemColor="labelColor"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="09B-bB-rj0">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -276,8 +280,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="clock" catalog="system" width="128" height="121"/>
+        <image name="clock.fill" catalog="system" width="128" height="121"/>
         <image name="cloud.rain" catalog="system" width="128" height="125"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="location" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
