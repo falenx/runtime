@@ -32,6 +32,11 @@ class HourlyWeatherCell: UITableViewCell {
         backgroundColorView.clipsToBounds = true
         backgroundColorView.layer.borderColor = UIColor.label.cgColor
         backgroundColorView.layer.borderWidth = 1.0
+        runningConditionsLabel.layer.shadowColor = UIColor.black.cgColor
+        runningConditionsLabel.layer.shadowRadius = 4.0
+        runningConditionsLabel.layer.shadowOpacity = 1.0
+        runningConditionsLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        runningConditionsLabel.layer.masksToBounds = false
     }
 
     

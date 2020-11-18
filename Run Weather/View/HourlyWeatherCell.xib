@@ -31,14 +31,14 @@
                                 <rect key="frame" x="49.5" y="0.0" width="40" height="20"/>
                                 <subviews>
                                     <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1M0-22-1oi" userLabel="colorView">
-                                        <rect key="frame" x="5" y="-5" width="30" height="30"/>
+                                        <rect key="frame" x="0.0" y="-10" width="40" height="40"/>
                                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="g18-i2-iij"/>
-                                            <constraint firstAttribute="height" constant="30" id="otY-3f-o75"/>
+                                            <constraint firstAttribute="width" constant="40" id="g18-i2-iij"/>
+                                            <constraint firstAttribute="height" constant="40" id="otY-3f-o75"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHm-3v-oPR">
@@ -47,7 +47,6 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
-                                        <color key="shadowColor" systemColor="systemGray3Color"/>
                                         <size key="shadowOffset" width="2" height="-1"/>
                                     </label>
                                 </subviews>
@@ -133,9 +132,6 @@
         <image name="wind" catalog="system" width="128" height="101"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
