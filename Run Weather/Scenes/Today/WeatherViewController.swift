@@ -9,8 +9,6 @@ import UIKit
 import CoreLocation
 import CoreData
 
-
-
 class WeatherViewController: UIViewController{
 
     
@@ -112,14 +110,14 @@ class WeatherViewController: UIViewController{
             
         }
         if weather.chanceOfRain > 70 {
-            self.currentConditionsBackgroundImage.image = UIImage(named: "RainRun.jpeg")
+          //  self.currentConditionsBackgroundImage.image = UIImage(named: "RainRun.jpeg")
         } else if weather.isDay == 0 {
-            self.currentConditionsBackgroundImage.image = UIImage(named: "NightRun.png")
+          //  self.currentConditionsBackgroundImage.image = UIImage(named: "NightRun.png")
         } else {
             if weather.currentHour < 10 {
-                self.currentConditionsBackgroundImage.image = UIImage(named: "runPic.jpg")
+               // self.currentConditionsBackgroundImage.image = UIImage(named: "runPic.jpg")
             } else {
-                self.currentConditionsBackgroundImage.image = UIImage(named: "DayRun.jpg")
+               // self.currentConditionsBackgroundImage.image = UIImage(named: "DayRun.jpg")
             }
         }
         
@@ -140,7 +138,6 @@ class WeatherViewController: UIViewController{
         self.currentRunRatingLabel.text = ""
         self.currentWeatherImageView.image = UIImage(systemName: "sun.min")
         self.currentConditionsBackgroundImage.image = UIImage(named: "")
-    
     }
 }
 
@@ -162,7 +159,6 @@ extension WeatherViewController: UITableViewDelegate {
         resultsTableController?.locations?.names = []
         resultsTableController?.dismiss(animated: true)
         self.foundCity = nil
-        
     }
 }
 
@@ -200,10 +196,10 @@ extension WeatherViewController: UISearchBarDelegate {
 extension WeatherViewController: WeatherManagerDelegate {
     
     func fetchData() {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
+        
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Settings")
         do {
@@ -291,23 +287,14 @@ extension WeatherViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "hourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
         
-        let index = (weather?.currentHour ?? 0) + indexPath.row + 1
-        let hour = weather?.hoursArray[index]
-        cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        if (settings.isCelsius) ?? false {
-            cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
-        } else {
-            cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
-        }
-        cell.runningConditionsLabel.text = String(hour?.getRunningConditions() ?? 0)
-        cell.backgroundColorView.backgroundColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
-        cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
-        cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
-        if (hour?.currentHour ?? 0 > 11) {
-            cell.currentHourLabel.text = String(dateConvert(date: hour?.currentHour ?? 0)) + " PM"
-        } else {
-            cell.currentHourLabel.text = String(hour?.currentHour ?? 0) + " AM"
-        }
+        guard let weather = weather else { return cell }
+        
+        cell.model = HourlyWeatherCell.Model(
+            weather: weather,
+            currentHour: weather.currentHour,
+            offSet: indexPath.row + 1,
+            settings: settings
+        )
         return cell
     }
     

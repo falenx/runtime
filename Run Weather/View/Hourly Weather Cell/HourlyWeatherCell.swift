@@ -9,6 +9,23 @@ import UIKit
 
 class HourlyWeatherCell: UITableViewCell {
     
+    struct Model {
+        
+        let chanceOfRain: String
+        let feelsLike: String
+        let runningCondition: String
+        let runningConditionsColor: UIColor
+        let windSpeed: String
+        let weatherIconName: String
+        let currentHour: String
+        
+    }
+    
+    var model: Model? {
+        didSet {
+            applyModel()
+        }
+    }
     
     @IBOutlet weak var runningConditionsLabel: UILabel!
     @IBOutlet weak var weatherIconImageView: UIImageView!
@@ -20,7 +37,17 @@ class HourlyWeatherCell: UITableViewCell {
     
     
     
-    
+    func applyModel() {
+        guard let model = model else { return }
+        
+        chanceOfRainLabel.text = model.chanceOfRain
+        feelsLikeLabel.text = model.feelsLike
+        runningConditionsLabel.text = model.runningCondition
+        backgroundColorView.backgroundColor = model.runningConditionsColor
+        windSpeedLabel.text = model.windSpeed
+        weatherIconImageView.image = UIImage(systemName: model.weatherIconName)
+        currentHourLabel.text = model.currentHour
+    }
     
     
     

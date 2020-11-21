@@ -63,26 +63,14 @@ class TomorrowWeatherTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "hourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
+        guard let weather = weather else { return cell }
         
-        let index = 24 + indexPath.row
-        let hour = weather?.hoursArray[index]
-        cell.chanceOfRainLabel.text = String(hour?.chanceOfRain ?? 0) + "%"
-        if (settings?.isCelsius) ?? false {
-            cell.feelsLikeLabel.text = String(hour?.feelsLikeC ?? 0) + "°"
-        } else {
-            cell.feelsLikeLabel.text = String(hour?.feelsLikeF ?? 0) + "°"
-        }
-        cell.runningConditionsLabel.text = String(hour?.getRunningConditions() ?? 0)
-        cell.backgroundColorView.backgroundColor = getRunningConditionsColor(String(hour?.getRunningConditions() ?? 0))
-        cell.windSpeedLabel.text = String(hour?.windSpeed ?? 0) + " MPH"
-        cell.weatherIconImageView.image = UIImage(systemName: hour?.conditionName ?? "sun.min")
-        if (hour?.currentHour ?? 0 > 11) {
-            cell.currentHourLabel.text = String(dateConvert(date: hour?.currentHour ?? 0)) + " PM"
-        } else if (hour?.currentHour ?? 0 == 0){
-            cell.currentHourLabel.text = String(12) + " AM"
-        }else {
-            cell.currentHourLabel.text = String(hour?.currentHour ?? 0) + " AM"
-        }
+        cell.model = HourlyWeatherCell.Model(
+            weather: weather,
+            currentHour: 24,
+            offSet: indexPath.row,
+            settings: settings!
+        )
         return cell
     }
     
