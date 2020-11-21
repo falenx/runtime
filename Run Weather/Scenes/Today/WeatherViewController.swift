@@ -10,7 +10,6 @@ import CoreLocation
 import CoreData
 
 class WeatherViewController: UIViewController{
-
     
     var settings = SettingsModel(){
         didSet {
@@ -33,7 +32,7 @@ class WeatherViewController: UIViewController{
     @IBOutlet weak var hourlyTableView: UITableView!
     @IBOutlet weak var currentConditionsBackgroundImage: UIImageView!
     
-    
+
     var weatherManager = WeatherManager()
     var citySearchManager = CitySearchManager()
     let locationManager = CLLocationManager()
@@ -96,18 +95,13 @@ class WeatherViewController: UIViewController{
         
         if self.settings.isCelsius ?? false {
             if foundCity != nil {
-                self.currentCityLabel.text = "\(foundCity!)   \(weather.temperatureStringC + "°")"
+                self.currentCityLabel.text = "\(foundCity!) \(Formatters.degressString(from: weather.temperatureStringC))"
             } else {
-                self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringC + "°")"
+                self.currentCityLabel.text = "\(weather.cityName) \(Formatters.degressString(from: weather.temperatureStringC))"
             }
         } else {
-            if foundCity != nil {
-                self.currentCityLabel.text = "\(foundCity!)   \(weather.temperatureStringF + "°")"
-            } else {
-                self.currentCityLabel.text = "\(weather.cityName)   \(weather.temperatureStringF + "°")"
-
-            }
-            
+            let cityName = foundCity ?? weather.cityName
+            self.currentCityLabel.text = "\(cityName) \(Formatters.degressString(from: weather.temperatureStringF))"
         }
         if weather.chanceOfRain > 70 {
           //  self.currentConditionsBackgroundImage.image = UIImage(named: "RainRun.jpeg")

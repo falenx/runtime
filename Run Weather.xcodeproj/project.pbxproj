@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		27B6AC602569B9AE00D289D4 /* HourlyWeatherCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6AC5F2569B9AE00D289D4 /* HourlyWeatherCellViewModel.swift */; };
 		27B6AC632569C1C000D289D4 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6AC622569C1C000D289D4 /* Formatters.swift */; };
+		27B6AC712569CEF500D289D4 /* TodayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B6AC702569CEF500D289D4 /* TodayDataSource.swift */; };
 		ED01E582253E235B0078AEBC /* TomorrowWeatherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */; };
 		ED28432E254763F300F76CF1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */; };
 		ED48C5AB253E2ECE00AA7589 /* WeatherModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		27B6AC5F2569B9AE00D289D4 /* HourlyWeatherCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherCellViewModel.swift; sourceTree = "<group>"; };
 		27B6AC622569C1C000D289D4 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		27B6AC702569CEF500D289D4 /* TodayDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayDataSource.swift; sourceTree = "<group>"; };
 		ED01E581253E235B0078AEBC /* TomorrowWeatherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TomorrowWeatherTableViewController.swift; sourceTree = "<group>"; };
 		ED28432D254763F300F76CF1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = "Run Weather/Scenes/Settings/View/SettingsTableViewController.swift"; sourceTree = SOURCE_ROOT; };
 		ED48C5AA253E2ECE00AA7589 /* WeatherModelStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModelStore.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				ED77FA2B252A88BF0012DF0B /* WeatherViewController.swift */,
+				27B6AC702569CEF500D289D4 /* TodayDataSource.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				ED62BC0B254C627800450EF6 /* PreferenceSwitchCell.swift in Sources */,
 				ED28432E254763F300F76CF1 /* SettingsTableViewController.swift in Sources */,
 				EDB9FDB025310365003C7AB6 /* WeatherModel.swift in Sources */,
+				27B6AC712569CEF500D289D4 /* TodayDataSource.swift in Sources */,
 				ED48C5AB253E2ECE00AA7589 /* WeatherModelStore.swift in Sources */,
 				ED77FA2A252A88BF0012DF0B /* SceneDelegate.swift in Sources */,
 				EDD06960254C6680008DF6A2 /* SettingsModel.swift in Sources */,

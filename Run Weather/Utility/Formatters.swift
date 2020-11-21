@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// Reusable code that is used to transofrm values into other types
-/// Good for formatting degress, or wind speed, running condition, etc. 
+/// Good for formatting degress, or wind speed, running condition, etc.
 struct Formatters {
 
     static func hourString(from militaryHour: Int) -> String {
@@ -20,6 +20,10 @@ struct Formatters {
         }else {
             return "\(militaryHour) AM"
         }
+    }
+    
+    static func degressString(from temperature: String) -> String {
+        return "\(temperature) °"
     }
     
     static func getRunningConditionsColor(_ runCondition: Int) -> UIColor {
