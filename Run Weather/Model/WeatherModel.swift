@@ -105,13 +105,6 @@ struct WeatherModel {
     
     
     func getRunningConditions() -> Int {
-        // ideal running temperatures between 55 and 73 degrees
-        //humidity under 40% does not have a significant effect
-        //humidity over 70% has a drastic effect
-        //optimal wind speed is <5 mph 7+is drastic
-        //running in anything but light rain in dangerous
-        //light rain running is at your own risk, anything more should be avoided
-        //var runningConditions = 10
         
         let idealTemperature = SettingsModelStore.shared.model?.idealTemperature ?? 65
         let idealHumidity = SettingsModelStore.shared.model?.idealHumidity ?? 40

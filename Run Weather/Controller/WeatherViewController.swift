@@ -44,6 +44,8 @@ class WeatherViewController: UIViewController{
     var searchController: UISearchController?
     var foundCity: String?
     
+    
+    
     @IBAction func currentLocationButtonPressed(_ sender: UIBarButtonItem) {
         self.currentCityLabel.text = "Loading running scores"
         locationManager.requestLocation()
@@ -80,14 +82,23 @@ class WeatherViewController: UIViewController{
         definesPresentationContext = true
         
         updateModel()
-        //find where the db is
-        //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+
                 
     }
+    
+    @objc func applicationDidBecomeActive(notification: NSNotification) {
+        updateModel()
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         settings = SettingsModelStore.shared.model!
     }
+    
+    
     
     func updateModel() {
                 
@@ -127,7 +138,6 @@ class WeatherViewController: UIViewController{
         self.currentConditionsStatementLabel.text = weather.conditionStatement
         self.currentRunRatingLabel.text = String(weather.getRunningConditions())
         self.currentRunRatingLabel.textColor = self.getRunningConditionsColor(String(weather.getRunningConditions()))
-        
         self.hourlyTableView.reloadData()
         self.view.layoutIfNeeded()
         
