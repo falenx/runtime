@@ -321,6 +321,10 @@ extension WeatherViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        //when cell is clicked add a new cell to the table with the detailed information for that hour, and cast the new cell as! the new cell type
+    }
+    
     func getRunningConditionsColor(_ runCondition: String) -> UIColor{
         let conditionRecieved = Int(runCondition)
         
