@@ -39,8 +39,8 @@ struct APIForecastDay: Decodable {
 }
 
 struct APIHour: Decodable {
-    let chance_of_rain: String
-    let chance_of_snow: String
+    let chance_of_rain: Double
+    let chance_of_snow: Double
     let condition: APICondition
     let wind_mph: Double
     let temp_f: Double

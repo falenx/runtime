@@ -9,6 +9,7 @@ import Foundation
 
 struct APILocationData: Decodable {
     let name: String
+    let region: String
 }
 
 

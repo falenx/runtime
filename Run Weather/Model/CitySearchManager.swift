@@ -35,8 +35,10 @@ struct CitySearchManager {
             if decodedData.count > 0 {
                 for i in 0...((decodedData.count) - 1) {
                     let cityName = decodedData[i].name
-                    let tempArray = cityName.split(separator: ",")
-                    locationResults.names.append(String(tempArray[0] + "," + tempArray[1]))
+                    let stateName = decodedData[i].region
+                    print(cityName)
+                    let tempName = cityName + ", " + stateName
+                    locationResults.names.append(String(tempName) )
                 }
             }
             return locationResults
